@@ -14,7 +14,7 @@ public class FailThreadObjectHolderRunnable implements Runnable {
         System.out.println("Start thread for FailThreadObjectHolder: " + object);
         FailThreadObjectHolder.INSTANCE.setObject(object);
         try {
-            Thread.sleep(100);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

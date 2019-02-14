@@ -14,7 +14,7 @@ public class ThreadObjectHolderRunnable implements Runnable {
         System.out.println("Start thread for CorrectThreadObjectHolder: " + object);
         CorrectThreadObjectHolder.setObject(object);
         try {
-            Thread.sleep(100);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
