@@ -39,16 +39,10 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- METRICS ////////////////-->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        <!-- Micrometric: An abstract layer to integrate with other specific metrics such as Prometheus, Dropwizard,... -->
-        <!-- Micrometric + Prometheus -->
-        <dependency>
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-registry-prometheus</artifactId>
+            <groupId>com.fasterxml.uuid</groupId>
+            <artifactId>java-uuid-generator</artifactId>
+            <version>3.1.5</version>
         </dependency>
     </dependencies>
 
