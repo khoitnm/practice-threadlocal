@@ -1,6 +1,6 @@
 package org.tnmk.practice.localthread.simple.localthread;
 
-public class ThreadObjectHolder {
+public class CorrectThreadObjectHolder {
 
     private static final ThreadLocal<Object> objectHolder = new ThreadLocal();
 
