@@ -3,7 +3,7 @@ The practice with Spring Boot + Prometheus
 # I. Running application:
 
 ## 1. Start your application
-You can start either `pro01-simple-metrics` or `pro02-metrics-with-aspectj`
+You can start either `pro01-simple-localthread` or `pro02-metrics-with-aspectj`
 
 For example, we start the `pro02-metrics-with-aspectj`:
 Those applications have code for measuring running time, the request counts...

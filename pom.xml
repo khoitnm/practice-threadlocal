@@ -9,8 +9,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>pro01-simple-metrics</module>
-        <module>pro02-metrics-with-aspectj</module>
+        <module>pro01-simple-localthread</module>
     </modules>
 
 </project>
