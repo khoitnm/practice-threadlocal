@@ -1,0 +1,20 @@
+server.port: 8082
+management:
+#  endpoint:
+#      prometheus:
+#        enabled: true
+  endpoints:
+    web:
+      exposure:
+        # You may only need health and prometheus
+        include: health, info, httptrace, metrics, threaddump, mappings, prometheus
+  server:
+    port: 9292 #The port for actuator
+  metrics:
+    binders:
+      jvm:
+        enabled: false
+    distribution:
+      sla:
+        #The keys match with metric name, for example SampleUseCase#METRIC_NAME
+        sample_use_case_process: 11, 101, 501, 1001, 1501, 2001, 3001

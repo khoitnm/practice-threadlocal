@@ -1,0 +1,4 @@
+ext.gradleVersion = '4.7'
+
+//Spring
+ext.springBootGradlePluginVersion = '2.0.2.RELEASE' //It's the same as springBootVersion
