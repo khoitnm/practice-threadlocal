@@ -1,6 +1,6 @@
 package org.tnmk.practice.localthread.simple;
 
-import org.tnmk.practice.localthread.simple.localthread.CorrectThreadObjectHolder;
+import org.tnmk.practice.localthread.CorrectThreadObjectHolder;
 
 public class ThreadObjectHolderRunnable implements Runnable {
     private final Object object;

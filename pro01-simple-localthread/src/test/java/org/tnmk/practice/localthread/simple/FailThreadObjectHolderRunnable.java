@@ -1,6 +1,6 @@
 package org.tnmk.practice.localthread.simple;
 
-import org.tnmk.practice.localthread.simple.localthread.FailThreadObjectHolder;
+import org.tnmk.practice.localthread.FailThreadObjectHolder;
 
 public class FailThreadObjectHolderRunnable implements Runnable {
     private final Object object;
