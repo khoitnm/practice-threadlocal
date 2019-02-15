@@ -30,12 +30,12 @@ public class UuidConcurrencyTests {
     }
 
     private void testUuidGenerator(Supplier<UUID> uuidGenerationFunc) throws InterruptedException {
-        int listSize = 10000;
-        //I don't want to use synchronous list because it will impact threads processing
-        //And don't use regular thread because it's not thread-safe.
-        UUID[] allGeneratedUuids = new UUID[listSize];
+        int uuidsCount = 10000;
+        //I don't want to use synchronous lists because it will impact threads processing
+        //And don't use regular lists because it's not thread-safe.
+        UUID[] allGeneratedUuids = new UUID[uuidsCount];
         List<Thread> threads = new ArrayList<>();
-        for (int i = 0; i < listSize; i++) {
+        for (int i = 0; i < uuidsCount; i++) {
             final int index = i;
             Runnable runnable = () -> {
                 UUID customizedUuid = uuidGenerationFunc.get();
