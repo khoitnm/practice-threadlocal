@@ -13,7 +13,7 @@ public class UuidConcurrencyTests {
     private final TimeBasedGenerator timeBasedGenerator = Generators.timeBasedGenerator();
 
     /**
-     * Retry a few times, this method will fail the test because the generated Uuid is not unique!!!
+     * Depend on your computer power, you may want to increase the uuidsCount to see duplications.
      *
      * @throws InterruptedException
      */
@@ -21,18 +21,17 @@ public class UuidConcurrencyTests {
     public void test_CustomizedUuidGenerator_Fail() throws InterruptedException {
         findDuplicatedCustomizedUUID(() -> {
             return UuidGenerator.generateTimeBasedUuid();
-        });
+        }, 40000);
     }
 
     @RepeatedTest(50)
     public void test_StandardUuidGenerator_Success() throws InterruptedException {
         testUuidGenerator(() -> {
             return timeBasedGenerator.generate();
-        });
+        },40000);
     }
 
-    private void testUuidGenerator(Supplier<Object> uuidGenerationFunc) throws InterruptedException {
-        int uuidsCount = 10000;
+    private void testUuidGenerator(Supplier<Object> uuidGenerationFunc, int uuidsCount) throws InterruptedException {
         //I don't want to use synchronous lists because it will impact threads processing
         //And don't use regular lists because it's not thread-safe.
         Object[] allGeneratedUuids = new Object[uuidsCount];
@@ -60,8 +59,7 @@ public class UuidConcurrencyTests {
 
     }
 
-    private void findDuplicatedCustomizedUUID(Supplier<CustomizedUUID> uuidGenerationFunc) throws InterruptedException {
-        int uuidsCount = 20000;
+    private void findDuplicatedCustomizedUUID(Supplier<CustomizedUUID> uuidGenerationFunc, int uuidsCount) throws InterruptedException {
         //I don't want to use synchronous lists because it will impact threads processing
         //And don't use regular lists because it's not thread-safe.
         CustomizedUUID[] allGeneratedUuids = new CustomizedUUID[uuidsCount];
@@ -101,8 +99,8 @@ public class UuidConcurrencyTests {
 
         for (UUID transformedUUID : duplicatedCustomizedUUIDsMap.keySet()) {
             List<CustomizedUUID> duplicatedCustomizedUUIDs = duplicatedCustomizedUUIDsMap.get(transformedUUID);
-            List<UUID> duplicatedOriginalUUIDs = duplicatedCustomizedUUIDs.stream().map(customizedUUID -> customizedUUID.getOriginalUUID()).collect(Collectors.toList());
-            System.out.println("TransformedUUID: " + transformedUUID + ". Duplicated original: " + duplicatedOriginalUUIDs);
+//            List<UUID> duplicatedOriginalUUIDs = duplicatedCustomizedUUIDs.stream().map(customizedUUID -> customizedUUID.getOriginalUUID()).collect(Collectors.toList());
+            System.out.println("TransformedUUID: " + transformedUUID + ". Duplicated original: " + duplicatedCustomizedUUIDs);
         }
         Assert.assertEquals(allGeneratedUuids.length, uniqueTransformedUuidSet.size());
 

@@ -33,4 +33,8 @@ public class CustomizedUUID {
         return Objects.hash(transformedUUID);
     }
 
+    public String toString(){
+        return String.format("{original: %s, transformed: %s}", originalUUID, transformedUUID);
+    }
+
 }

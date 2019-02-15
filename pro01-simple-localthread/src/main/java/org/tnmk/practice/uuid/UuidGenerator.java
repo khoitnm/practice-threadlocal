@@ -24,9 +24,9 @@ public class UuidGenerator {
     public static CustomizedUUID generateTimeBasedUuid(){
         //Split by hyphens
         UUID originalUUID = generator.generate();
-        String[] splitByHyphens = originalUUID.toString().toUpperCase().split("-");
 
         //rebuild as ordered: [HighTime][MidTime][LowTime][Randomness]
+        String[] splitByHyphens = originalUUID.toString().toUpperCase().split("-");
         UUID transformedUUID = UUID.fromString(splitByHyphens[2] + '-' + splitByHyphens[1] + '-' + splitByHyphens[0] + '-' + splitByHyphens[3] + '-' + splitByHyphens[4]);
         return new CustomizedUUID(originalUUID, transformedUUID);
     }
