@@ -1,14 +1,11 @@
 package org.tnmk.practice.uuid;
 
 import com.fasterxml.uuid.Generators;
-import com.fasterxml.uuid.UUIDGenerator;
 import com.fasterxml.uuid.impl.TimeBasedGenerator;
 import org.junit.Assert;
-import org.junit.Test;
-import org.tnmk.practice.uuid.UuidGenerator;
+import org.junit.jupiter.api.RepeatedTest;
 
 import java.util.*;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class UuidConcurrencyTests {
@@ -18,15 +15,15 @@ public class UuidConcurrencyTests {
      * Retry a few times, this method will fail the test because the generated Uuid is not unique!!!
      * @throws InterruptedException
      */
-    @Test
-    public void testCustomizedUuidGenerator() throws InterruptedException {
+    @RepeatedTest(10)
+    public void test_CustomizedUuidGenerator_Fail() throws InterruptedException {
         testUuidGenerator(() -> {
             return UuidGenerator.generateTimeBasedUuid();
         });
     }
 
-    @Test
-    public void testStandardUuidGenerator() throws InterruptedException {
+    @RepeatedTest(50)
+    public void test_StandardUuidGenerator_Success() throws InterruptedException {
         testUuidGenerator(() -> {
             return timeBasedGenerator.generate();
         });
