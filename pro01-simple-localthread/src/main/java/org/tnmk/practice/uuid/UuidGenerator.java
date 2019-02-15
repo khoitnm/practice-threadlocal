@@ -3,6 +3,7 @@ package org.tnmk.practice.uuid;
 import com.fasterxml.uuid.Generators;
 import com.fasterxml.uuid.impl.TimeBasedGenerator;
 
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -20,11 +21,13 @@ public class UuidGenerator {
      * the UUID is generated. So UUIds generated with in a small time span will all start with the same characters.
      * @return A time based, string UUID.
      */
-    public static UUID generateTimeBasedUuid(){
+    public static CustomizedUUID generateTimeBasedUuid(){
         //Split by hyphens
-        String[] splitByHyphens = generator.generate().toString().toUpperCase().split("-");
+        UUID originalUUID = generator.generate();
+        String[] splitByHyphens = originalUUID.toString().toUpperCase().split("-");
 
         //rebuild as ordered: [HighTime][MidTime][LowTime][Randomness]
-        return UUID.fromString(splitByHyphens[2] + '-' + splitByHyphens[1] + '-' + splitByHyphens[0] + '-' + splitByHyphens[3] + '-' + splitByHyphens[4]);
+        UUID transformedUUID = UUID.fromString(splitByHyphens[2] + '-' + splitByHyphens[1] + '-' + splitByHyphens[0] + '-' + splitByHyphens[3] + '-' + splitByHyphens[4]);
+        return new CustomizedUUID(originalUUID, transformedUUID);
     }
 }

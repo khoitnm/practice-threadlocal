@@ -7,17 +7,19 @@ import org.junit.jupiter.api.RepeatedTest;
 
 import java.util.*;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 public class UuidConcurrencyTests {
     private final TimeBasedGenerator timeBasedGenerator = Generators.timeBasedGenerator();
 
     /**
      * Retry a few times, this method will fail the test because the generated Uuid is not unique!!!
+     *
      * @throws InterruptedException
      */
     @RepeatedTest(10)
     public void test_CustomizedUuidGenerator_Fail() throws InterruptedException {
-        testUuidGenerator(() -> {
+        findDuplicatedCustomizedUUID(() -> {
             return UuidGenerator.generateTimeBasedUuid();
         });
     }
@@ -29,16 +31,16 @@ public class UuidConcurrencyTests {
         });
     }
 
-    private void testUuidGenerator(Supplier<UUID> uuidGenerationFunc) throws InterruptedException {
+    private void testUuidGenerator(Supplier<Object> uuidGenerationFunc) throws InterruptedException {
         int uuidsCount = 10000;
         //I don't want to use synchronous lists because it will impact threads processing
         //And don't use regular lists because it's not thread-safe.
-        UUID[] allGeneratedUuids = new UUID[uuidsCount];
+        Object[] allGeneratedUuids = new Object[uuidsCount];
         List<Thread> threads = new ArrayList<>();
         for (int i = 0; i < uuidsCount; i++) {
             final int index = i;
             Runnable runnable = () -> {
-                UUID customizedUuid = uuidGenerationFunc.get();
+                Object customizedUuid = uuidGenerationFunc.get();
                 allGeneratedUuids[index] = customizedUuid;
             };
             Thread uuidGeneratorThread = new Thread(runnable);
@@ -50,11 +52,69 @@ public class UuidConcurrencyTests {
         }
 
         //Assert no duplicated uuids
-        Set<UUID> uniqueUuidSet = new HashSet<>(Arrays.asList(allGeneratedUuids));
-        System.out.println("Threads count: "+threads.size());
-        System.out.println("All Generated Uuids count: "+allGeneratedUuids.length);
-        System.out.println("Unique Uuids count: "+allGeneratedUuids.length);
+        Set<Object> uniqueUuidSet = new HashSet<>(Arrays.asList(allGeneratedUuids));
+        System.out.println("Threads count: " + threads.size());
+        System.out.println("All Generated Uuids count: " + allGeneratedUuids.length);
+        System.out.println("Unique Uuids count: " + allGeneratedUuids.length);
         Assert.assertEquals(allGeneratedUuids.length, uniqueUuidSet.size());
 
+    }
+
+    private void findDuplicatedCustomizedUUID(Supplier<CustomizedUUID> uuidGenerationFunc) throws InterruptedException {
+        int uuidsCount = 20000;
+        //I don't want to use synchronous lists because it will impact threads processing
+        //And don't use regular lists because it's not thread-safe.
+        CustomizedUUID[] allGeneratedUuids = new CustomizedUUID[uuidsCount];
+        List<Thread> threads = new ArrayList<>();
+        for (int i = 0; i < uuidsCount; i++) {
+            final int index = i;
+            Runnable runnable = () -> {
+                CustomizedUUID customizedUuid = uuidGenerationFunc.get();
+                allGeneratedUuids[index] = customizedUuid;
+            };
+            Thread uuidGeneratorThread = new Thread(runnable);
+            uuidGeneratorThread.start();
+            threads.add(uuidGeneratorThread);
+        }
+        for (Thread thread : threads) {
+            thread.join();
+        }
+
+        //Assert no duplicated uuids
+        Set<UUID> uniqueTransformedUuidSet = new HashSet<>();
+        //Key: transformedUUID, Value: duplicated values.
+        Map<UUID, List<CustomizedUUID>> duplicatedCustomizedUUIDsMap = new HashMap<>();
+        for (CustomizedUUID customizedUUID : allGeneratedUuids) {
+            UUID transformedUUID = customizedUUID.getTransformedUUID();
+            boolean isAddedTranformedUUID = uniqueTransformedUuidSet.add(transformedUUID);
+            boolean isDuplicated = !isAddedTranformedUUID;
+            if (isDuplicated) {
+
+                List<CustomizedUUID> duplicatedCustomizedUUIDs = findExistingCustomizedUUIDWithTheSameTransformedUUID(transformedUUID, allGeneratedUuids);
+                duplicatedCustomizedUUIDsMap.put(transformedUUID, duplicatedCustomizedUUIDs);
+            }
+        }
+
+        System.out.println("Threads count: " + threads.size());
+        System.out.println("All Generated Uuids count: " + allGeneratedUuids.length);
+        System.out.println("Unique Uuids count: " + allGeneratedUuids.length);
+
+        for (UUID transformedUUID : duplicatedCustomizedUUIDsMap.keySet()) {
+            List<CustomizedUUID> duplicatedCustomizedUUIDs = duplicatedCustomizedUUIDsMap.get(transformedUUID);
+            List<UUID> duplicatedOriginalUUIDs = duplicatedCustomizedUUIDs.stream().map(customizedUUID -> customizedUUID.getOriginalUUID()).collect(Collectors.toList());
+            System.out.println("TransformedUUID: " + transformedUUID + ". Duplicated original: " + duplicatedOriginalUUIDs);
+        }
+        Assert.assertEquals(allGeneratedUuids.length, uniqueTransformedUuidSet.size());
+
+    }
+
+    private List<CustomizedUUID> findExistingCustomizedUUIDWithTheSameTransformedUUID(UUID transformedUUID, CustomizedUUID[] allGeneratedUuids) {
+        List<CustomizedUUID> allCustomizedUUIDWithTheSameTranformedUUID = new ArrayList<>();
+        for (CustomizedUUID customizedUUID : allGeneratedUuids) {
+            if (customizedUUID.getTransformedUUID().equals(transformedUUID)) {
+                allCustomizedUUIDWithTheSameTranformedUUID.add(customizedUUID);
+            }
+        }
+        return allCustomizedUUIDWithTheSameTranformedUUID;
     }
 }
