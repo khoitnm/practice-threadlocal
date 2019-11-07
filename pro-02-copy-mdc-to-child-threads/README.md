@@ -13,3 +13,8 @@ Thread vs. Executor:
 
 Spring Task Executor:
 - https://docs.spring.io/spring/docs/4.2.x/spring-framework-reference/html/scheduling.html  
+
+Others:
+- https://github.com/micronaut-projects/micronaut-core/issues/1049
+- https://proandroiddev.com/synchronization-and-thread-safety-techniques-in-java-and-kotlin-f63506370e6d
+- https://www.baeldung.com/java-thread-safety
