@@ -1,5 +1,6 @@
 package org.tnmk.practice.pro02copymdctochildthreads.sample.parallelitems;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
@@ -13,11 +14,14 @@ public class ParallelItemsProcessing {
     private static final Logger logger = LoggerFactory.getLogger(SampleAsyncService.class);
 
     public void processItemsCocurrently(int itemsCount) {
-        MDC.put("task", "processItemsCocurrently_" + System.nanoTime());
+        MDC.put("triggeredDateTime", Instant.now().toString());
         logger.info("Start creating items");
         List<String> items = generateList(itemsCount);
         items.parallelStream().forEach((item) -> {
-            logger.info("Processing item " + item);
+
+            //FIXME When the thread is [onPool-worker-1], it cannot get value from the original MDC.
+            // It only shows MDC values when running in the [main] threads.
+            logger.info("Processing item " + item + MDC.getCopyOfContextMap());
         });
     }
 

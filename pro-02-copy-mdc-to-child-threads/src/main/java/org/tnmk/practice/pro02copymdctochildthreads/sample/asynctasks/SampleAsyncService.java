@@ -2,6 +2,7 @@ package org.tnmk.practice.pro02copymdctochildthreads.sample.asynctasks;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,7 @@ public class SampleAsyncService {
 
     @Async
     public void writeLog(){
-        //MDC information will be also written into log messages.
-        logger.info("Sample Async Service");
+        //This will be run in [lTaskExecutor-3] and able to get MDC value.
+        logger.info("Sample Async Service"+ MDC.getCopyOfContextMap());
     }
 }
