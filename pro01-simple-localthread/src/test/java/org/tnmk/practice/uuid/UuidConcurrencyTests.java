@@ -22,7 +22,7 @@ public class UuidConcurrencyTests {
         });
     }
 
-    @RepeatedTest(50)
+    @RepeatedTest(10)
     public void test_StandardUuidGenerator_Success() throws InterruptedException {
         boolean expectAllGeneratedUuidsAreUnique = true;
         testUuidGenerator(expectAllGeneratedUuidsAreUnique, () -> {
