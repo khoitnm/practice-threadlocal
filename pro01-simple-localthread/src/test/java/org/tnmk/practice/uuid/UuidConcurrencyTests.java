@@ -13,23 +13,24 @@ public class UuidConcurrencyTests {
 
     /**
      * Retry a few times, this method will fail the test because the generated Uuid is not unique!!!
-     * @throws InterruptedException
      */
     @RepeatedTest(10)
     public void test_CustomizedUuidGenerator_Fail() throws InterruptedException {
-        testUuidGenerator(() -> {
+        boolean expectAllGeneratedUuidsAreUnique = false;
+        testUuidGenerator(expectAllGeneratedUuidsAreUnique, () -> {
             return UuidGenerator.generateTimeBasedUuid();
         });
     }
 
     @RepeatedTest(50)
     public void test_StandardUuidGenerator_Success() throws InterruptedException {
-        testUuidGenerator(() -> {
+        boolean expectAllGeneratedUuidsAreUnique = true;
+        testUuidGenerator(expectAllGeneratedUuidsAreUnique, () -> {
             return timeBasedGenerator.generate();
         });
     }
 
-    private void testUuidGenerator(Supplier<UUID> uuidGenerationFunc) throws InterruptedException {
+    private void testUuidGenerator(boolean expectAllGeneratedUuidsAreUnique, Supplier<UUID> uuidGenerationFunc) throws InterruptedException {
         int uuidsCount = 10000;
         //I don't want to use synchronous lists because it will impact threads processing
         //And don't use regular lists because it's not thread-safe.
@@ -51,10 +52,14 @@ public class UuidConcurrencyTests {
 
         //Assert no duplicated uuids
         Set<UUID> uniqueUuidSet = new HashSet<>(Arrays.asList(allGeneratedUuids));
-        System.out.println("Threads count: "+threads.size());
-        System.out.println("All Generated Uuids count: "+allGeneratedUuids.length);
-        System.out.println("Unique Uuids count: "+allGeneratedUuids.length);
-        Assert.assertEquals(allGeneratedUuids.length, uniqueUuidSet.size());
+        System.out.println("Threads count: " + threads.size());
+        System.out.println("All Generated Uuids count: " + allGeneratedUuids.length);
+        System.out.println("Unique Uuids count: " + allGeneratedUuids.length);
+        if (expectAllGeneratedUuidsAreUnique) {
+            Assert.assertEquals(allGeneratedUuids.length, uniqueUuidSet.size());
+        } else {
+            Assert.assertNotEquals(allGeneratedUuids.length, uniqueUuidSet.size());
+        }
 
     }
 }
