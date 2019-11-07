@@ -18,7 +18,7 @@ public class ParallelItemsProcessing {
         logger.info("Start creating items");
         List<String> items = generateList(itemsCount);
         items.parallelStream().forEach((item) -> {
-
+            MDC.put("asyncNanoTime", ""+System.nanoTime());
             //FIXME When the thread is [onPool-worker-1], it cannot get value from the original MDC.
             // It only shows MDC values when running in the [main] threads.
             logger.info("Processing item " + item + MDC.getCopyOfContextMap());
