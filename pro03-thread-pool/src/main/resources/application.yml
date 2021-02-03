@@ -1,4 +1,15 @@
 server:
   tomcat:
     threads:
-      max: 3
+      max: 15
+
+
+spring:
+  task:
+    execution:
+      pool:
+        # set the maximum number of threads to use for @Async
+        max-threads: 10
+
+        # controls the core (minimum) pool-size.
+        core-size: 5
