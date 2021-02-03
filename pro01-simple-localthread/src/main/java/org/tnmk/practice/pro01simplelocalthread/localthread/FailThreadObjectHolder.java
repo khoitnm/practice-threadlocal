@@ -1,4 +1,4 @@
-package org.tnmk.practice.localthread;
+package org.tnmk.practice.pro01simplelocalthread.localthread;
 
 public class FailThreadObjectHolder extends ThreadLocal {
 

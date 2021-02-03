@@ -1,9 +1,6 @@
-package org.tnmk.practice.localthread.simple;
+package org.tnmk.practice.pro01simplelocalthread.localthread.simple;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
