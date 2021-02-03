@@ -30,6 +30,7 @@ public class UuidConcurrencyTests {
         });
     }
 
+    //TODO this is not the best way to write UnitTest with multi-threads assertion logic
     private void testUuidGenerator(boolean expectAllGeneratedUuidsAreUnique, Supplier<UUID> uuidGenerationFunc) throws InterruptedException {
         int uuidsCount = 10000;
         //I don't want to use synchronous lists because it will impact threads processing
