@@ -1,4 +1,4 @@
-package org.tnmk.practice.pro02threadpool.localthread;
+package org.tnmk.practice.pro02simplemdc.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -11,7 +11,7 @@
     <modules>
         <module>pro01-simple-localthread</module>
         <module>pro02-simple-mdc</module>
-        <module>pro02-thread-pool</module>
+        <module>pro03-thread-pool</module>
     </modules>
 
 </project>

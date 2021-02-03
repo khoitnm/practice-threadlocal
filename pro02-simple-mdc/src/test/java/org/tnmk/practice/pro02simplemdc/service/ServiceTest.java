@@ -1,4 +1,4 @@
-package org.tnmk.practice.pro02threadpool.localthread;
+package org.tnmk.practice.pro02simplemdc.service;
 
 import org.junit.jupiter.api.Test;
 
@@ -9,5 +9,6 @@ public class ServiceTest {
   @Test
   public void test(){
     serviceA.startA();
+    //No exception means good!
   }
 }
