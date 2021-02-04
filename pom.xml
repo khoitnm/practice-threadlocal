@@ -12,6 +12,7 @@
         <module>pro01-simple-localthread</module>
         <module>pro02-simple-mdc</module>
         <module>pro03-thread-pool</module>
+        <module>pro04-zuul-proxy</module>
     </modules>
 
 </project>

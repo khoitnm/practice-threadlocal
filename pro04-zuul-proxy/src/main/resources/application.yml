@@ -1,0 +1,14 @@
+zuul:
+  routes:
+    pro04zuulproxy:
+      url: http://istio.nprd.pointclickcare.com/dev/sc-service
+#      url: http://sopdev:novus@istio.nprd.pointclickcare.com/dev/sc-service
+
+      # https://cloud.spring.io/spring-cloud-static/spring-cloud-netflix/2.2.2.RELEASE/reference/html/#cookies-and-sensitive-headers
+      strip-prefix: false
+      sensitive-headers: Cookie,Set-Cookie,Authorization
+ribbon:
+  eureka:
+    enabled: false
+server:
+  port: 8001
