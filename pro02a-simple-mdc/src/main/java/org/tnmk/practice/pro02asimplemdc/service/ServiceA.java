@@ -1,4 +1,4 @@
-package org.tnmk.practice.pro02simplemdc.service;
+package org.tnmk.practice.pro02asimplemdc.service;
 
 import org.slf4j.MDC;
 
