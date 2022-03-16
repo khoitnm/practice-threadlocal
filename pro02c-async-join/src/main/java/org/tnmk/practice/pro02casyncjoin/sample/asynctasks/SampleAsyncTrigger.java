@@ -22,7 +22,9 @@ public class SampleAsyncTrigger {
     logger.info("Start SampleAsyncTrigger");
 
     for (int i = 0; i < asyncTasksCount; i++) {
-      sampleAsyncService.writeLog();
+      sampleAsyncService.asyncWriteLog(i);
     }
+
+    logger.info("End SampleAsyncTrigger");
   }
 }
