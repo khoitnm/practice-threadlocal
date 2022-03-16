@@ -6,9 +6,8 @@ import org.springframework.stereotype.Service;
 
 import java.lang.invoke.MethodHandles;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
+import java.util.stream.IntStream;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -18,16 +17,13 @@ public class ParallelItemsProcessing {
 
   public void processItemsConcurrently(int itemsCount) {
     MDC.put("triggeredDateTime", Instant.now().toString());
-    logger.info("Start creating items");
-    List<String> items = generateList(itemsCount);
+    logger.info("Start parallelStream");
 
     Map<String, String> originalMdcContext = MDC.getCopyOfContextMap();
-    items.parallelStream().forEach((item) -> {
-      Thread childThread = Thread.currentThread();
+    IntStream.range(0, itemsCount).parallel().forEach((item) -> {
       MDC.setContextMap(originalMdcContext);
       try {
-        MDC.put("asyncNanoTime", "" + System.nanoTime());
-        logger.info("Processing item " + item + MDC.getCopyOfContextMap());
+        processItem(item);
       } finally {
         MDC.clear();
       }
@@ -35,14 +31,11 @@ public class ParallelItemsProcessing {
     // Sometimes a concurrent thread is the same as parent thread.
     // In that case, we should reset the original context after running all concurrent threads.
     MDC.setContextMap(originalMdcContext);
-    logger.info("Finish creating items");
+    logger.info("Finish parallelStream");
   }
 
-  private List<String> generateList(int itemsCount) {
-    List<String> list = new ArrayList<>(itemsCount);
-    for (int i = 0; i < itemsCount; i++) {
-      list.add("Item_" + i);
-    }
-    return list;
+  private void processItem(int item) {
+    MDC.put("asyncNanoTime", "" + System.nanoTime());
+    logger.info("ParallelStreamItem " + item);
   }
 }

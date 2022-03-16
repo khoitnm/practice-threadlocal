@@ -14,9 +14,9 @@ public class SampleAsyncService {
   private final static Logger logger = getLogger(MethodHandles.lookup().lookupClass());
 
   @Async
-  public void writeLog() {
+  public void asyncWriteLog(int item) {
     //This will be run in [lTaskExecutor-3] and able to get MDC value.
     MDC.put("asyncNanoTime", "" + System.nanoTime());
-    logger.info("Sample Async Service" + MDC.getCopyOfContextMap());
+    logger.info("Sample Async Service " + item);
   }
 }
