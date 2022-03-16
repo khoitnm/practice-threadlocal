@@ -1,4 +1,4 @@
-package org.tnmk.practice.pro02copymdctochildthreads.copymdc;
+package org.tnmk.practice.pro02bcopymdctochildthreads.copymdc;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.AsyncConfigurerSupport;

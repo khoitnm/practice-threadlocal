@@ -1,4 +1,4 @@
-package org.tnmk.practice.pro02copymdctochildthreads.copymdc;
+package org.tnmk.practice.pro02bcopymdctochildthreads.copymdc;
 
 import java.util.Map;
 import org.slf4j.MDC;

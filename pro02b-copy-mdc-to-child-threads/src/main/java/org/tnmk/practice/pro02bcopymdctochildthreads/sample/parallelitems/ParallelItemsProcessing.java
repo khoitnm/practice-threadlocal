@@ -1,4 +1,4 @@
-package org.tnmk.practice.pro02copymdctochildthreads.sample.parallelitems;
+package org.tnmk.practice.pro02bcopymdctochildthreads.sample.parallelitems;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.stereotype.Service;
-import org.tnmk.practice.pro02copymdctochildthreads.sample.asynctasks.SampleAsyncService;
+import org.tnmk.practice.pro02bcopymdctochildthreads.sample.asynctasks.SampleAsyncService;
 
 @Service
 public class ParallelItemsProcessing {
