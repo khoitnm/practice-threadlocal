@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.tnmk.practice</groupId>
-    <artifactId>pro-02-copy-mdc-to-child-threads</artifactId>
+    <artifactId>pro02b-copy-mdc-to-child-threads</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>pro-02-copy-mdc-to-child-threads</name>
+    <name>pro02b-copy-mdc-to-child-threads</name>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
