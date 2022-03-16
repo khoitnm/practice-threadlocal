@@ -18,6 +18,6 @@ public class Initiation {
     @EventListener(ApplicationReadyEvent.class)
     public void init(){
         sampleAsyncTrigger.start(10);
-        parallelItemsProcessing.processItemsCocurrently(10);
+        parallelItemsProcessing.processItemsConcurrently(10);
     }
 }
