@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.lang.invoke.MethodHandles;
 import java.time.Instant;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.IntStream;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -19,12 +21,14 @@ public class SampleAsyncTrigger {
 
   public void start(int asyncTasksCount) {
     MDC.put("triggeredDateTime", Instant.now().toString());
-    logger.info("Start SampleAsyncTrigger");
+    logger.info("SampleAsyncTrigger: start");
 
-    for (int i = 0; i < asyncTasksCount; i++) {
-      sampleAsyncService.asyncWriteLog(i);
-    }
+    CompletableFuture<?>[] futures = IntStream.range(0, asyncTasksCount)
+        .mapToObj(i -> sampleAsyncService.asyncWriteLog(i))
+        .toArray(CompletableFuture[]::new);
 
-    logger.info("End SampleAsyncTrigger");
+    logger.info("SampleAsyncTrigger: wait for all async to finish");
+    CompletableFuture.allOf(futures).join();
+    logger.info("SampleAsyncTrigger: finish all async");
   }
 }
