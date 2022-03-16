@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.tnmk.practice</groupId>
-    <artifactId>pro02-simple-mdc</artifactId>
+    <artifactId>pro02a-simple-mdc</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>pro02-simple-mdc</name>
+    <name>pro02a-simple-mdc</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
