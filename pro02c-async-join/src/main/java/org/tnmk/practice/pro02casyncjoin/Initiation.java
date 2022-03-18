@@ -4,20 +4,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
+import org.tnmk.practice.pro02casyncjoin.sample.asynctasks.SampleAsyncService;
 import org.tnmk.practice.pro02casyncjoin.sample.asynctasks.SampleAsyncTrigger;
 import org.tnmk.practice.pro02casyncjoin.sample.parallelitems.ParallelItemsProcessing;
 
 @Service
 public class Initiation {
 
-    @Autowired
-    private SampleAsyncTrigger sampleAsyncTrigger;
-    @Autowired
-    private ParallelItemsProcessing parallelItemsProcessing;
+  @Autowired
+  private SampleAsyncTrigger sampleAsyncTrigger;
+  @Autowired
+  private ParallelItemsProcessing parallelItemsProcessing;
 
-    @EventListener(ApplicationReadyEvent.class)
-    public void init(){
-        sampleAsyncTrigger.start(10);
-        parallelItemsProcessing.processItemsConcurrently(10);
-    }
+  @EventListener(ApplicationReadyEvent.class)
+  public void init() {
+    sampleAsyncTrigger.start(SampleAsyncService.MAX_ITEM);
+    parallelItemsProcessing.processItemsConcurrently(ParallelItemsProcessing.MAX_ITEM);
+  }
 }

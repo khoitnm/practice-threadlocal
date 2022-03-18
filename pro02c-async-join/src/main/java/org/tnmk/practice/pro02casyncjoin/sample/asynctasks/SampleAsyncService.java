@@ -12,7 +12,7 @@ import static org.slf4j.LoggerFactory.getLogger;
 
 @Service
 public class SampleAsyncService {
-  private static final int MAX_ITEM = 3;
+  public static final int MAX_ITEM = 3;
   private final static Logger logger = getLogger(MethodHandles.lookup().lookupClass());
 
   @Async
