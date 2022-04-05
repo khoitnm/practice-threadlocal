@@ -1,4 +1,4 @@
-package org.tnmk.practice.pro01simplelocalthread.localthread.simple;
+package org.tnmk.practice.pro01simplethreadlocal.localthread.simple;
 
 import org.junit.Test;
 

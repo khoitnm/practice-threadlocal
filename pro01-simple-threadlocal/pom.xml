@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.tnmk.practice</groupId>
-    <artifactId>pro01-simple-localthread</artifactId>
+    <artifactId>pro01-simple-threadlocal</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>pro01-simple-localthread</name>
+    <name>pro01-simple-threadlocal</name>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
