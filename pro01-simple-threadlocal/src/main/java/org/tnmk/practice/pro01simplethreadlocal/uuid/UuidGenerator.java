@@ -1,4 +1,4 @@
-package org.tnmk.practice.pro01simplelocalthread.uuid;
+package org.tnmk.practice.pro01simplethreadlocal.uuid;
 
 import com.fasterxml.uuid.Generators;
 import com.fasterxml.uuid.impl.TimeBasedGenerator;

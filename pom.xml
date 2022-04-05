@@ -4,12 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.tnmk.practice</groupId>
-    <artifactId>practice-localthread</artifactId>
+    <artifactId>practice-threadlocal</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>pro01-simple-localthread</module>
+        <module>pro01-simple-threadlocal</module>
         <module>pro02a-simple-mdc</module>
         <module>pro02b-copy-mdc-to-child-threads</module>
         <module>pro02c-async-join</module>

@@ -1,4 +1,4 @@
-package org.tnmk.practice.pro01simplelocalthread.localthread;
+package org.tnmk.practice.pro01simplethreadlocal.localthread;
 
 public class CorrectThreadObjectHolder {
 
