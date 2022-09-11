@@ -16,12 +16,15 @@ public class Lv01Async {
 
   @Async
   public CompletableFuture<String> spawnChildren(int lv01ChildThreads, int lv02ChildThreads, int lv03Sleep) {
+    log.info("Lv01Async is running...");
+
+    Thread lv01Thread = Thread.currentThread();
     CompletableFuture<?>[] futures = IntStream.range(0, lv01ChildThreads)
-        .mapToObj(i -> lv02Async.spawnChildren(lv02ChildThreads, lv03Sleep))
+        .mapToObj(i -> lv02Async.spawnChildren(lv01Thread, lv02ChildThreads, lv03Sleep))
         .toArray(CompletableFuture[]::new);
 
     CompletableFuture.allOf(futures).join();
-
+    log.info("Lv01Async is finished");
     return CompletableFuture.completedFuture("Lv01 finished");
   }
 }
