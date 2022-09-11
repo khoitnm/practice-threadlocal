@@ -1,4 +1,4 @@
-package org.tnmk.practice.pro02dasyncseparatepools.sample.asynctasks.spawn_children__wait_stuck;
+package org.tnmk.practice.pro02dasyncseparatepools.sample.asynctasks.spawn_children_02_no_wait_no_stuck;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +10,7 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class WaitStuckLv03Async {
+public class NoWaitNoStuckLv03Async {
   @Async
   public CompletableFuture<String> async(Thread lv01Thread, Thread lv02Thread, int sleep) {
     Thread lv03Thread = Thread.currentThread();
