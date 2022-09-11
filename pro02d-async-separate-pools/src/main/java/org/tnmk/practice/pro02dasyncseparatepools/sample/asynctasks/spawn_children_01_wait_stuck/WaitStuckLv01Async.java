@@ -1,4 +1,4 @@
-package org.tnmk.practice.pro02dasyncseparatepools.sample.asynctasks.spawn_children__no_wait_no_stuck;
+package org.tnmk.practice.pro02dasyncseparatepools.sample.asynctasks.spawn_children_01_wait_stuck;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,19 +11,19 @@ import java.util.stream.IntStream;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class NoWaitNoStuckLv01Async {
-  private final NoWaitNoStuckLv02Async noWaitNoStuckLv02Async;
+public class WaitStuckLv01Async {
+  private final WaitStuckLv02Async waitStuckLv02Async;
 
   @Async
   public CompletableFuture<String> spawnChildren(int lv01ChildThreads, int lv02ChildThreads, int lv03Sleep) {
     log.info("Lv01Async is running...");
 
     Thread lv01Thread = Thread.currentThread();
-    IntStream.range(0, lv01ChildThreads)
-        .forEach(i -> noWaitNoStuckLv02Async.spawnChildren(lv01Thread, lv02ChildThreads, lv03Sleep))
-        ;
+    CompletableFuture<?>[] futures = IntStream.range(0, lv01ChildThreads)
+        .mapToObj(i -> waitStuckLv02Async.spawnChildren(lv01Thread, lv02ChildThreads, lv03Sleep))
+        .toArray(CompletableFuture[]::new);
 
-//    CompletableFuture.allOf(futures).join();
+    CompletableFuture.allOf(futures).join();
     log.info("Lv01Async is finished");
     return CompletableFuture.completedFuture("Lv01 finished");
   }
