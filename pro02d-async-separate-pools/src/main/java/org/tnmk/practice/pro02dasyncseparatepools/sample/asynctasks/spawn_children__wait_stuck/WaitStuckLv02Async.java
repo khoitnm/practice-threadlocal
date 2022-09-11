@@ -1,4 +1,4 @@
-package org.tnmk.practice.pro02dasyncseparatepools.sample.asynctasks.spawn_children_stuck;
+package org.tnmk.practice.pro02dasyncseparatepools.sample.asynctasks.spawn_children__wait_stuck;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,8 +11,8 @@ import java.util.stream.IntStream;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class StuckLv02Async {
-  private final StuckLv03Async stuckLv03Async;
+public class WaitStuckLv02Async {
+  private final WaitStuckLv03Async waitStuckLv03Async;
 
   @Async
   public CompletableFuture<String> spawnChildren(Thread lv01Thread, int childThreads, int lv03Sleep) {
@@ -20,7 +20,7 @@ public class StuckLv02Async {
 
     Thread lv02Thread = Thread.currentThread();
     CompletableFuture<?>[] futures = IntStream.range(0, childThreads)
-        .mapToObj(i -> stuckLv03Async.async(lv01Thread, lv02Thread, lv03Sleep))
+        .mapToObj(i -> waitStuckLv03Async.async(lv01Thread, lv02Thread, lv03Sleep))
         .toArray(CompletableFuture[]::new);
 
     CompletableFuture.allOf(futures).join();
