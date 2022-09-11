@@ -1,4 +1,4 @@
-package org.tnmk.practice.pro02dasyncseparatepools.sample.asynctasks.spawn_children;
+package org.tnmk.practice.pro02dasyncseparatepools.sample.asynctasks.spawn_children_stuck;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +10,7 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class Lv03Async {
+public class StuckLv03Async {
   @Async
   public CompletableFuture<String> async(Thread lv01Thread, Thread lv02Thread, int sleep) {
     Thread lv03Thread = Thread.currentThread();
