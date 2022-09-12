@@ -15,17 +15,17 @@ public class WaitStuckLv02Async {
   private final WaitStuckLv03Async waitStuckLv03Async;
 
   @Async
-  public CompletableFuture<String> spawnChildren(Thread lv01Thread, int childThreads, int lv03Sleep) {
-    log.info("Lv02Async is running...");
+  public CompletableFuture<String> spawnChildren(int lv02Index, Thread lv01Thread, int childThreads, int lv03Sleep) {
+    log.info("Lv02Async[{}] is running...", lv02Index);
 
     Thread lv02Thread = Thread.currentThread();
     CompletableFuture<?>[] futures = IntStream.range(0, childThreads)
-        .mapToObj(i -> waitStuckLv03Async.async(lv01Thread, lv02Thread, lv03Sleep))
+        .mapToObj(lv03Index -> waitStuckLv03Async.async(lv02Index, lv03Index, lv01Thread, lv02Thread, lv03Sleep))
         .toArray(CompletableFuture[]::new);
 
     CompletableFuture.allOf(futures).join();
 
-    log.info("Lv02Async is finished");
-    return CompletableFuture.completedFuture("Lv02 finished");
+    log.info("Lv02Async[{}] is finished", lv02Index);
+    return CompletableFuture.completedFuture("Lv02[" + lv02Index + "] finished");
   }
 }

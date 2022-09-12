@@ -20,7 +20,7 @@ public class WaitStuckLv01Async {
 
     Thread lv01Thread = Thread.currentThread();
     CompletableFuture<?>[] futures = IntStream.range(0, lv01ChildThreads)
-        .mapToObj(i -> waitStuckLv02Async.spawnChildren(lv01Thread, lv02ChildThreads, lv03Sleep))
+        .mapToObj(i -> waitStuckLv02Async.spawnChildren(i, lv01Thread, lv02ChildThreads, lv03Sleep))
         .toArray(CompletableFuture[]::new);
 
     CompletableFuture.allOf(futures).join();
