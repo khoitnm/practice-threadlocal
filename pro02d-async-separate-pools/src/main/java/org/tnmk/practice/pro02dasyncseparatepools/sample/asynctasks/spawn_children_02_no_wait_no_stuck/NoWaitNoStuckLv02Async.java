@@ -3,7 +3,10 @@ package org.tnmk.practice.pro02dasyncseparatepools.sample.asynctasks.spawn_child
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
+import org.tnmk.practice.pro02dasyncseparatepools.common.ProcessLogger;
+import org.tnmk.practice.pro02dasyncseparatepools.common.ThreadLogger;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.IntStream;
@@ -13,16 +16,18 @@ import java.util.stream.IntStream;
 @RequiredArgsConstructor
 public class NoWaitNoStuckLv02Async {
   private final NoWaitNoStuckLv03Async noWaitNoStuckLv03Async;
+  private final ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
   @Async
-  public CompletableFuture<String> spawnChildren(Thread lv01Thread, int childThreads, int lv03Sleep) {
-    log.info("Lv02Async is running...");
+  public CompletableFuture<String> spawnChildren(int childThreads, int lv03Sleep) {
+    String description = ProcessLogger.summary(this, null);
+    ThreadLogger.logSummary(description, threadPoolTaskExecutor);
 
     Thread lv02Thread = Thread.currentThread();
     IntStream.range(0, childThreads)
-        .forEach(i -> noWaitNoStuckLv03Async.async(lv01Thread, lv02Thread, lv03Sleep));
+        .forEach(i -> noWaitNoStuckLv03Async.async(lv03Sleep));
 
-    log.info("Lv02Async is finished");
+    log.info(description + " finished");
     return CompletableFuture.completedFuture("Lv02 finished");
   }
 }
