@@ -17,3 +17,8 @@ https://www.linkedin.com/pulse/handle-long-running-tasks-java-threads-sameh-muha
   
 Spring `@Async` will use `ThreadPoolTaskExecutor`, which is basically `ExecutorService`
 https://medium.com/globant/asynchronous-calls-in-spring-boot-using-async-annotation-d34d8a82a60c
+
+## Some problems
+### Deadlock problem:
+- https://stackoverflow.com/questions/9071453/io-network-bound-fork-join-tasks
+- https://stackoverflow.com/questions/70761704/behaviour-of-threads-during-blocking-io-in-java-forkjoinpool
