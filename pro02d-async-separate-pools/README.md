@@ -8,6 +8,11 @@ https://www.linkedin.com/pulse/handle-long-running-tasks-java-threads-sameh-muha
   - ForkJoin in pure Java: https://www.baeldung.com/java-fork-join
   - ForkJoin CommonPool understanding: https://dzone.com/articles/be-aware-of-forkjoinpoolcommonpool
 - ExecutorService:
+  - Concept: 
+    - Java ExecutorService - Part 1 - Introduction: 
+      - https://www.youtube.com/watch?v=6Oo-9Can3H8&list=PLhfHPmPYPPRk6yMrcbfafFGSbE2EPK_A6&index=5
+      - https://www.youtube.com/watch?v=Dma_NmOrp1c&list=PLhfHPmPYPPRk6yMrcbfafFGSbE2EPK_A6&index=7
+      - Explain how Future works: https://www.youtube.com/watch?v=NEZ2ASoP_nY&list=PLhfHPmPYPPRk6yMrcbfafFGSbE2EPK_A6&index=8
   - Pure Java: https://www.baeldung.com/java-executor-service-tutorial
   
 Spring `@Async` will use `ThreadPoolTaskExecutor`, which is basically `ExecutorService`
