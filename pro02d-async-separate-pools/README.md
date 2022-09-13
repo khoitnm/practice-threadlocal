@@ -1,20 +1,12 @@
-This sample code shows a way to copy data of a ThreadLocal (MDC) from a parent thread to child threads (spawn threads) 
-by using `AsyncConfigurerSupport` of Spring framework.
+# Threads:
+## ExecutorService vs. ForkJoin
+This knowledge is important to use the right approach and avoid the whole app to get stuck when scale up:
+https://www.linkedin.com/pulse/handle-long-running-tasks-java-threads-sameh-muhammed/?trk=pulse-article_more-articles_related-content-card
+- ForkJoin:
+  - Good explanation: https://www.youtube.com/watch?v=5wgZYyvIVJk 
+  - More details explanation: https://www.youtube.com/watch?v=whHaNMmIOgI&t=6s
+  - ForkJoin in pure Java: https://www.baeldung.com/java-fork-join
 
-# References
-- https://github.com/spring-cloud/spring-cloud-sleuth/issues/1022
-- https://grokonez.com/java-integration/start-spring-async-spring-boot
-
-Thread vs. Executor:
-- https://javarevisited.blogspot.com/2016/12/difference-between-thread-and-executor.html 
-- https://winterbe.com/posts/2015/04/07/java8-concurrency-tutorial-thread-executor-examples/
-- https://stackify.com/java-thread-pools/ (mentioned worker thread)
-
-
-Spring Task Executor:
-- https://docs.spring.io/spring/docs/4.2.x/spring-framework-reference/html/scheduling.html  
-
-Others:
-- https://github.com/micronaut-projects/micronaut-core/issues/1049
-- https://proandroiddev.com/synchronization-and-thread-safety-techniques-in-java-and-kotlin-f63506370e6d
-- https://www.baeldung.com/java-thread-safety
+  
+Spring `@Async` will use `ThreadPoolTaskExecutor`, which is basically `ExecutorService`
+https://medium.com/globant/asynchronous-calls-in-spring-boot-using-async-annotation-d34d8a82a60c
