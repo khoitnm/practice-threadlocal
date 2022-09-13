@@ -6,7 +6,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.tnmk.practice.pro02dasyncseparatepools.common.ThreadPoolExecutorLogger;
+import org.tnmk.practice.pro02dasyncseparatepools.common.ThreadLogger;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.IntStream;
@@ -28,7 +28,7 @@ public class NoSpawnNoStuckController {
     CompletableFuture<?>[] futures = IntStream.range(0, childrenCount)
         .mapToObj(asyncIndex -> {
           String processTitle = String.format("%s[%s] before starting", this.getClass().getSimpleName(), asyncIndex);
-          ThreadPoolExecutorLogger.logSummary(processTitle, applicationTaskExecutor);
+          ThreadLogger.logSummary(processTitle, applicationTaskExecutor);
           return noSpawnNoStuckAsync.async(asyncIndex, sleep);
         })
         .toArray(CompletableFuture[]::new);

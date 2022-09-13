@@ -6,7 +6,7 @@ import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
-import org.tnmk.practice.pro02dasyncseparatepools.common.ThreadPoolExecutorLogger;
+import org.tnmk.practice.pro02dasyncseparatepools.common.ThreadLogger;
 
 @Service
 @Slf4j
@@ -16,6 +16,6 @@ public class AppStarter {
 
   @EventListener(ApplicationStartedEvent.class)
   public void start() {
-    ThreadPoolExecutorLogger.log(applicationTaskExecutor);
+    ThreadLogger.log(applicationTaskExecutor);
   }
 }
