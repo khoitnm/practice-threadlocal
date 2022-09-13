@@ -3,7 +3,10 @@ package org.tnmk.practice.pro02dasyncseparatepools.sample.asynctasks.spawn_child
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
+import org.tnmk.practice.pro02dasyncseparatepools.common.ProcessLogger;
+import org.tnmk.practice.pro02dasyncseparatepools.common.ThreadLogger;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.IntStream;
@@ -13,19 +16,23 @@ import java.util.stream.IntStream;
 @RequiredArgsConstructor
 public class WaitStuckLv02Async {
   private final WaitStuckLv03Async waitStuckLv03Async;
+  private final ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
   @Async
-  public CompletableFuture<String> spawnChildren(int lv02Index, Thread lv01Thread, int childThreads, int lv03Sleep) {
-    log.info("Lv02Async[{}] is running...", lv02Index);
+  public CompletableFuture<String> spawnChildren(final int lv02Index, int childrenCount, int lv03Sleep) {
+    String description = ProcessLogger.summary(this, lv02Index);
+    ThreadLogger.logSummary(description, threadPoolTaskExecutor);
 
-    Thread lv02Thread = Thread.currentThread();
-    CompletableFuture<?>[] futures = IntStream.range(0, childThreads)
-        .mapToObj(lv03Index -> waitStuckLv03Async.async(lv02Index, lv03Index, lv01Thread, lv02Thread, lv03Sleep))
+    CompletableFuture<?>[] futures = IntStream.range(0, childrenCount)
+        .mapToObj(lv03Index -> {
+          log.info(description + ": Start adding waitStuckLv03Async[" + lv03Index + "]");
+          return waitStuckLv03Async.async(lv02Index, lv03Index, lv03Sleep);
+        })
         .toArray(CompletableFuture[]::new);
 
     CompletableFuture.allOf(futures).join();
 
-    log.info("Lv02Async[{}] is finished", lv02Index);
+    log.info(description + " finished");
     return CompletableFuture.completedFuture("Lv02[" + lv02Index + "] finished");
   }
 }

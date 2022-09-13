@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 @Slf4j
-public class ThreadPoolExecutorLogger {
+public class ThreadLogger {
   public static void log(ThreadPoolTaskExecutor executor) {
     log.info("ThreadPoolTaskExecutor: \n"
         + "\n\t getCorePoolSize: " + executor.getCorePoolSize()

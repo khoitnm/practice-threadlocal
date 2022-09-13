@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
-import org.tnmk.practice.pro02dasyncseparatepools.common.ThreadPoolExecutorLogger;
+import org.tnmk.practice.pro02dasyncseparatepools.common.ThreadLogger;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -19,7 +19,7 @@ public class NoSpawnNoStuckAsync {
   @Async
   public CompletableFuture<String> async(int asyncIndex, int sleep) {
     String processTitle = String.format("%s[%s]", this.getClass().getSimpleName(), asyncIndex);
-    ThreadPoolExecutorLogger.logSummary(processTitle + " sleeping " + sleep, applicationTaskExecutor);
+    ThreadLogger.logSummary(processTitle + " sleeping " + sleep, applicationTaskExecutor);
     try {
       Thread.sleep(sleep);
     } catch (InterruptedException e) {

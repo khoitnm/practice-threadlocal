@@ -15,11 +15,13 @@ public class WaitStuckController {
 
   @GetMapping(REQUEST_PATH)
   public String asyncSpawnChildren(
-      @RequestParam(value = "lv01children", defaultValue = "5") int lv01Children,
-      @RequestParam(value = "lv02children", defaultValue = "5") int lv02Children,
+      // the default lv02Count 10 will make thread pool stuck because threadPool CoreSize is only 8.
+      //
+      @RequestParam(value = "lv02Count", defaultValue = "10") int lv02Count,
+      @RequestParam(value = "lv03Count", defaultValue = "5") int lv03Count,
       @RequestParam(value = "lv03sleep", defaultValue = "100") int lv03sleep) {
     log.info("API {} is running...", REQUEST_PATH);
-    waitStuckLv01Async.spawnChildren(lv01Children, lv02Children, lv03sleep);
+    waitStuckLv01Async.spawnChildren(lv02Count, lv03Count, lv03sleep);
     return "finished";
   }
 }
