@@ -2,9 +2,11 @@ package org.tnmk.practice.pro02dasyncseparatepools.sample.asynctasks.pro00_simpl
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
+import org.tnmk.practice.pro02dasyncseparatepools.common.MdcKeys;
 import org.tnmk.practice.pro02dasyncseparatepools.common.ThreadLogger;
 
 import java.util.concurrent.CompletableFuture;
@@ -18,7 +20,8 @@ public class SimpleAsync {
 
   @Async
   public CompletableFuture<String> async(int sleep) {
-    String processTitle = String.format("%s[%s]", this.getClass().getSimpleName(), null);
+    String requestIndex = MDC.get(MdcKeys.MDC_KEY_REQUEST_INDEX);
+    String processTitle = String.format("%s[%s]", this.getClass().getSimpleName(), requestIndex);
     ThreadLogger.logSummary(processTitle + " sleeping " + sleep, applicationTaskExecutor);
     try {
       Thread.sleep(sleep);
