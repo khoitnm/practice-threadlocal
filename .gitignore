@@ -1,5 +1,5 @@
 ### Gradle ### 
-
+*.log
 **/gradlew
 **/gradlew\.bat
 **/.gradle

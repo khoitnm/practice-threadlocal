@@ -22,3 +22,14 @@ https://medium.com/globant/asynchronous-calls-in-spring-boot-using-async-annotat
 ### Deadlock problem:
 - https://stackoverflow.com/questions/9071453/io-network-bound-fork-join-tasks
 - https://stackoverflow.com/questions/70761704/behaviour-of-threads-during-blocking-io-in-java-forkjoinpool
+
+## Analyze Thread Dumb
+- Introduce some tools to analyze: https://www.perfmatrix.com/thread-dump-analysis/
+  - Use this online tool: https://fastthread.io/
+  
+Note: sometimes, there's no Block or Deadlock in the analyzer report, but the actual application still stop processing requests because ALL threads 
+ (task-xxx) threads just park waiting like this:
+```
+"task-1" #121 prio=5 os_prio=0 cpu=171.82ms elapsed=39403.05s tid=xxx nid=0xd7 waiting on condition  [xxx]
+   java.lang.Thread.State: WAITING (parking)
+```
