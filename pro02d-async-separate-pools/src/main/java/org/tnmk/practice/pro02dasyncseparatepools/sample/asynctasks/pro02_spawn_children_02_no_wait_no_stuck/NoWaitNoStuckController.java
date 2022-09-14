@@ -1,4 +1,4 @@
-package org.tnmk.practice.pro02dasyncseparatepools.sample.asynctasks.spawn_children_02_no_wait_no_stuck;
+package org.tnmk.practice.pro02dasyncseparatepools.sample.asynctasks.pro02_spawn_children_02_no_wait_no_stuck;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

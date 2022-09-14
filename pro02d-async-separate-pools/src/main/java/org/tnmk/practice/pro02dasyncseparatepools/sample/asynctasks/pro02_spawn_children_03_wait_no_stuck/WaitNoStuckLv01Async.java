@@ -1,4 +1,4 @@
-package org.tnmk.practice.pro02dasyncseparatepools.sample.asynctasks.no_spawn_02_wait;
+package org.tnmk.practice.pro02dasyncseparatepools.sample.asynctasks.pro02_spawn_children_03_wait_no_stuck;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,8 +14,8 @@ import java.util.stream.IntStream;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class NoSpawnWaitLv01Async {
-  private final NoSpawnWaitLv02Async noSpawnWaitLv02Async;
+public class WaitNoStuckLv01Async {
+  private final WaitNoStuckLv02Async waitNoStuckLv02Async;
   private final ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
   @Async
@@ -27,7 +27,7 @@ public class NoSpawnWaitLv01Async {
     CompletableFuture<?>[] futures = IntStream.range(0, lv02Count)
         .mapToObj(lv02Index -> {
           log.info(description + ": Start adding lv02[" + lv02Index + "]");
-          return noSpawnWaitLv02Async.async(lv02Index, lv02Sleep);
+          return waitNoStuckLv02Async.async(lv02Index, lv02Sleep);
         })
         .toArray(CompletableFuture[]::new);
 
