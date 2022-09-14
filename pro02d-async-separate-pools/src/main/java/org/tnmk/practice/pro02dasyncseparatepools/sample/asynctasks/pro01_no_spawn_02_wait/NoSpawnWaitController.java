@@ -1,4 +1,4 @@
-package org.tnmk.practice.pro02dasyncseparatepools.sample.asynctasks.no_spawn_02_wait;
+package org.tnmk.practice.pro02dasyncseparatepools.sample.asynctasks.pro01_no_spawn_02_wait;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
