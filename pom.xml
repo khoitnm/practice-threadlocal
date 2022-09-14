@@ -13,7 +13,8 @@
         <module>pro02a-simple-mdc</module>
         <module>pro02b-copy-mdc-to-child-threads</module>
         <module>pro02c-async-join</module>
-        <module>pro02d-async-separate-pools</module>
+        <module>pro02d-async-more-understanding</module>
+        <module>pro02e-async-separate-pools</module>
         <module>pro03-thread-pool</module>
         <module>pro04-zuul-proxy</module>
     </modules>
