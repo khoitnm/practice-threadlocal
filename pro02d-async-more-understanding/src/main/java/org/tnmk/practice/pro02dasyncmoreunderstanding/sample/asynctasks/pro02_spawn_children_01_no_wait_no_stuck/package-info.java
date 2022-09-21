@@ -5,4 +5,4 @@
  * and hence the pool have room for continue handling child threads.
  * So it won't get stuck.
  */
-package org.tnmk.practice.pro02dasyncmoreunderstanding.sample.asynctasks.pro02_spawn_children_02_no_wait_no_stuck;
+package org.tnmk.practice.pro02dasyncmoreunderstanding.sample.asynctasks.pro02_spawn_children_01_no_wait_no_stuck;

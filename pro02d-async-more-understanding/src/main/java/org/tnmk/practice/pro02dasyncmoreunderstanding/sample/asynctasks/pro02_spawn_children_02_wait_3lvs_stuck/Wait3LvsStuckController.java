@@ -1,4 +1,4 @@
-package org.tnmk.practice.pro02dasyncmoreunderstanding.sample.asynctasks.pro02_spawn_children_01_wait_stuck;
+package org.tnmk.practice.pro02dasyncmoreunderstanding.sample.asynctasks.pro02_spawn_children_02_wait_3lvs_stuck;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-public class WaitStuckController {
-  private final WaitStuckLv01Async waitStuckLv01Async;
-  private static final String REQUEST_PATH = "/async/spawn-children/wait-stuck";
+public class Wait3LvsStuckController {
+  private final Wait3LvsStuckLv01Async wait3LvsStuckLv01Async;
+  private static final String REQUEST_PATH = "/async/spawn-children/wait-3lvs-stuck";
 
   @GetMapping(REQUEST_PATH)
   public String asyncSpawnChildren(
@@ -21,7 +21,7 @@ public class WaitStuckController {
       @RequestParam(value = "lv03Count", defaultValue = "5") int lv03Count,
       @RequestParam(value = "lv03sleep", defaultValue = "100") int lv03sleep) {
     log.info("API {} is running...", REQUEST_PATH);
-    waitStuckLv01Async.spawnChildren(lv02Count, lv03Count, lv03sleep);
+    wait3LvsStuckLv01Async.spawnChildren(lv02Count, lv03Count, lv03sleep);
     return "finished";
   }
 }
