@@ -26,11 +26,15 @@ public class ContextDecorator implements TaskDecorator {
     return () -> {
       // Child thread begins...
       try {
-        MDC.setContextMap(mdcFromParentThread); // copy mdc from parent
+        if (mdcFromParentThread != null) {
+          MDC.setContextMap(mdcFromParentThread); // copy mdc from parent
+        }
         runnable.run();
       } finally {
-        for (String mdcKey : mdcFromParentThread.keySet()) {
-          MDC.remove(mdcKey);
+        if (mdcFromParentThread != null) {
+          for (String mdcKey : mdcFromParentThread.keySet()) {
+            MDC.remove(mdcKey);
+          }
         }
       }
       // Child thread end
