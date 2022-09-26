@@ -18,8 +18,7 @@ import java.util.stream.IntStream;
 public class Wait3LvsParallelNoStuckLv01 {
   private final Wait3LvsParallelNoStuckLv02 wait3LvsParallelNoStuckLv02;
 
-  @Async
-  public Future<String> spawnChildren(int lv02Count, int lv03Count, int lv03Sleep) {
+  public String spawnChildren(int lv02Count, int lv03Count, int lv03Sleep) {
 
     String description = ProcessLogger.summary(this, null);
     ThreadLogger.log(description, Thread.currentThread());
@@ -32,6 +31,6 @@ public class Wait3LvsParallelNoStuckLv01 {
         });
 
     log.info(description + " finished");
-    return CompletableFuture.completedFuture(description + " finished");
+    return description + " finished";
   }
 }
