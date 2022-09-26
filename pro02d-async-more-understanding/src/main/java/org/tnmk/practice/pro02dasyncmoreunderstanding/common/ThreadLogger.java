@@ -5,12 +5,15 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinWorkerThread;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class ThreadLogger {
 
   public static void log(ThreadPoolTaskExecutor executor) {
     log.info("ThreadPoolTaskExecutor: \n"
+        + "\n\t isDaemon: " + executor.isDaemon()
+        + "\n\t prefersShortLivedTasks: " + executor.prefersShortLivedTasks()
         + "\n\t getCorePoolSize: " + executor.getCorePoolSize()
         + "\n\t getPoolSize: " + executor.getPoolSize()
         + "\n\t getMaxPoolSize: " + executor.getMaxPoolSize()
@@ -23,8 +26,10 @@ public class ThreadLogger {
         + "\n\t getThreadPoolExecutor.getTaskCount: " + executor.getThreadPoolExecutor().getTaskCount()
         + "\n\t getThreadPoolExecutor.getLargestPoolSize: " + executor.getThreadPoolExecutor().getLargestPoolSize()
         + "\n\t getThreadPoolExecutor.getMaximumPoolSize: " + executor.getThreadPoolExecutor().getMaximumPoolSize()
+        + "\n\t getThreadPoolExecutor.getKeepAliveTime(): " + executor.getThreadPoolExecutor().getKeepAliveTime(TimeUnit.SECONDS) + " seconds"
         + "\n"
         + "\n\t getThreadPoolExecutor.getQueue.remainingCapacity: " + executor.getThreadPoolExecutor().getQueue().remainingCapacity()
+
     );
 
   }

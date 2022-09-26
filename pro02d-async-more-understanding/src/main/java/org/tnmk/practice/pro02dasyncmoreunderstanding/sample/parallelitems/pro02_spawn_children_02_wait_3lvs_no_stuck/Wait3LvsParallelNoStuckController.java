@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.concurrent.ExecutionException;
 import java.util.stream.IntStream;
 
 @Slf4j
@@ -20,9 +19,9 @@ public class Wait3LvsParallelNoStuckController {
   public String asyncSpawnChildren(
       // the default lv02Count 10 will make thread pool stuck because threadPool CoreSize is only 8.
       //
-      @RequestParam(value = "lv02Count", defaultValue = "15") int lv02Count,
+      @RequestParam(value = "lv02Count", defaultValue = "11") int lv02Count,
       @RequestParam(value = "lv03Count", defaultValue = "2") int lv03Count,
-      @RequestParam(value = "lv03Sleep", defaultValue = "5000") int lv03sleep) throws ExecutionException, InterruptedException {
+      @RequestParam(value = "lv03Sleep", defaultValue = "1000") int lv03sleep) {
     log.info("API {} is running...", REQUEST_PATH);
     IntStream.range(0, 1)
         .parallel()
