@@ -17,8 +17,8 @@ public class Wait3LvsStuckController {
   public String asyncSpawnChildren(
       // the default lv02Count 10 will make thread pool stuck because threadPool CoreSize is only 8.
       //
-      @RequestParam(value = "lv02Count", defaultValue = "10") int lv02Count,
-      @RequestParam(value = "lv03Count", defaultValue = "5") int lv03Count,
+      @RequestParam(value = "lv02Count", defaultValue = "11") int lv02Count,
+      @RequestParam(value = "lv03Count", defaultValue = "2") int lv03Count,
       @RequestParam(value = "lv03Sleep", defaultValue = "100") int lv03sleep) {
     log.info("API {} is running...", REQUEST_PATH);
     wait3LvsStuckLv01Async.spawnChildren(lv02Count, lv03Count, lv03sleep);

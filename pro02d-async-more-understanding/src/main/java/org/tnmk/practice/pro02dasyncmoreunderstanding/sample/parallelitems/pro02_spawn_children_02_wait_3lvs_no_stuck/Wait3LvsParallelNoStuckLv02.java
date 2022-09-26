@@ -21,7 +21,7 @@ public class Wait3LvsParallelNoStuckLv02 {
     IntStream.range(0, childrenCount)
         .parallel()
         .forEach(lv03Index -> {
-          log.info(description + ": Start adding waitStuckLv03Async[" + lv03Index + "]");
+          log.info(description + ": Start adding Lv03Async[" + lv03Index + "]");
           wait3LvsParallelNoStuckLv03.async(lv02Index, lv03Index, lv03Sleep);
         });
 
