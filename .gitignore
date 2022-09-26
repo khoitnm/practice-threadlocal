@@ -1,5 +1,6 @@
 ### Gradle ### 
 *.log
+*.zip
 **/gradlew
 **/gradlew\.bat
 **/.gradle

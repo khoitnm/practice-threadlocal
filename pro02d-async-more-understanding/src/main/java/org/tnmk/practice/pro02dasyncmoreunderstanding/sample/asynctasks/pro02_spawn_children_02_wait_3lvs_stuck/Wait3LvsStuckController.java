@@ -19,7 +19,7 @@ public class Wait3LvsStuckController {
       //
       @RequestParam(value = "lv02Count", defaultValue = "10") int lv02Count,
       @RequestParam(value = "lv03Count", defaultValue = "5") int lv03Count,
-      @RequestParam(value = "lv03sleep", defaultValue = "100") int lv03sleep) {
+      @RequestParam(value = "lv03Sleep", defaultValue = "100") int lv03sleep) {
     log.info("API {} is running...", REQUEST_PATH);
     wait3LvsStuckLv01Async.spawnChildren(lv02Count, lv03Count, lv03sleep);
     return "finished";
