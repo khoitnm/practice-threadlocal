@@ -1,4 +1,4 @@
-package org.tnmk.practice.pro02easyncseparatepools.common;
+package org.tnmk.practice.pro02fasyncforkjoinpool.common;
 
 import org.slf4j.MDC;
 import org.springframework.core.task.TaskDecorator;

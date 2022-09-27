@@ -1,12 +1,12 @@
-package org.tnmk.practice.pro02easyncseparatepools.custom_async_pool.pro01_spawn_children_01_wait_3lvs_no_stuck;
+package org.tnmk.practice.pro02fasyncforkjoinpool.custom_async_pool.pro01_spawn_children_01_wait_3lvs_no_stuck;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.tnmk.practice.pro02easyncseparatepools.common.ProcessLogger;
-import org.tnmk.practice.pro02easyncseparatepools.common.ThreadLogger;
-import org.tnmk.practice.pro02easyncseparatepools.custom_async_pool.AsyncSupport;
+import org.tnmk.practice.pro02fasyncforkjoinpool.common.ProcessLogger;
+import org.tnmk.practice.pro02fasyncforkjoinpool.common.ThreadLogger;
+import org.tnmk.practice.pro02fasyncforkjoinpool.custom_async_pool.AsyncSupport;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.IntStream;
