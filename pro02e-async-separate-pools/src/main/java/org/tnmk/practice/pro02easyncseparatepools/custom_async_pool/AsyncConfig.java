@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.tnmk.practice.pro02easyncseparatepools.common.ContextualForkJoinPool;
 import org.tnmk.practice.pro02easyncseparatepools.custom_async_pool.pro01_spawn_children_01_wait_3lvs_no_stuck.Wait3LvsNoStuckController;
 import org.tnmk.practice.pro02easyncseparatepools.custom_async_pool.pro01_spawn_children_01_wait_3lvs_no_stuck.Wait3LvsNoStuckSupport;
 
@@ -34,6 +35,17 @@ public class AsyncConfig {
    */
   @Bean(Wait3LvsNoStuckSupport.EXECUTOR_BEAN_NAME)
   public Executor customExecutor() {
+    ContextualForkJoinPool contextualForkJoinPool = new ContextualForkJoinPool(
+        Runtime.getRuntime().availableProcessors(),
+        ForkJoinPool.defaultForkJoinWorkerThreadFactory,
+        null,
+        true
+    );
+    return contextualForkJoinPool;
+//    return regularForkJoinPool();
+  }
+
+  private ForkJoinPool regularForkJoinPool(){
     ForkJoinPool pool = new ForkJoinPool(
         Runtime.getRuntime().availableProcessors(),
         ForkJoinPool.defaultForkJoinWorkerThreadFactory,

@@ -16,7 +16,10 @@ https://www.linkedin.com/pulse/handle-long-running-tasks-java-threads-sameh-muha
   - Pure Java: https://www.baeldung.com/java-executor-service-tutorial
   
 Spring `@Async` will use `ThreadPoolTaskExecutor`, which is basically `ExecutorService`
-https://medium.com/globant/asynchronous-calls-in-spring-boot-using-async-annotation-d34d8a82a60c
+- https://medium.com/globant/asynchronous-calls-in-spring-boot-using-async-annotation-d34d8a82a60c
+- Why Spring ThreadPoolTaskExectutor doesn't create more child thread when corePoolSize is fulled: 
+https://github.com/kimchy/kimchy.github.com/blob/master/_posts/2008-11-23-juc-executorservice-gotcha.textile <br/>
+"This is due to the logic within the ThreadPoolExecutor where new threads are added if there is a failure to offer a task to the queue."
 
 ## Some problems
 ### Deadlock problem:
