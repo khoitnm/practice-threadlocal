@@ -3,11 +3,15 @@ package org.tnmk.practice.pro02easyncseparatepools.common;
 import org.slf4j.MDC;
 import org.springframework.core.task.TaskDecorator;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
+import java.util.concurrent.ForkJoinPool;
 
 /**
+ * @deprecated This class only works with default ThreadPool of @Async (which is {@link ThreadPoolTaskExecutor})
+ * It doesn't work with {@link ForkJoinPool}: https://stackoverflow.com/questions/36026402/how-to-use-mdc-with-forkjoinpool
  * This class helps to copy SecurityContext to another thread when we use {@link Async}.
  * Guideline: https://moelholm.com/blog/2017/07/24/spring-43-using-a-taskdecorator-to-copy-mdc-data-to-async-threads
  * Just a note that it cannot copy to another thread when we use pure Java code to create another thread.
@@ -18,6 +22,7 @@ import java.util.Map;
  * </pre>
  */
 @Component
+@Deprecated
 public class ContextDecorator implements TaskDecorator {
 
   @Override
