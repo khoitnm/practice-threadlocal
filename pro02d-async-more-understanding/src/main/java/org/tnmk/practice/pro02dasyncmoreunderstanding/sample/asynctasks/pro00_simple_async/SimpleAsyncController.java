@@ -20,7 +20,7 @@ public class SimpleAsyncController {
 
   private static final String REQUEST_PATH = "/async/simple";
   private final SimpleAsync simpleAsync;
-  private final ThreadPoolTaskExecutor applicationTaskExecutor;
+  //private final ThreadPoolTaskExecutor applicationTaskExecutor;
 
   @GetMapping(REQUEST_PATH)
   public String asyncSpawnChildren(
@@ -28,7 +28,7 @@ public class SimpleAsyncController {
       @RequestParam(value = "sleep", defaultValue = "100") int sleep) throws ExecutionException, InterruptedException {
     MDC.put(MdcKeys.MDC_KEY_REQUEST_INDEX, "" + requestIndex);
     String processTitle = String.format("%s[%s] %s before starting", this.getClass().getSimpleName(), requestIndex, REQUEST_PATH);
-    ThreadLogger.logSummary(processTitle, applicationTaskExecutor);
+    ThreadLogger.log(processTitle, Thread.currentThread());
     Future<String> future = simpleAsync.async(sleep);
     String result = future.get();
     MDC.remove(MdcKeys.MDC_KEY_REQUEST_INDEX);

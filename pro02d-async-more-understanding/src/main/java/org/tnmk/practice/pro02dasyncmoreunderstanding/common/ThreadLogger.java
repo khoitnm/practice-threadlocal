@@ -50,14 +50,7 @@ public class ThreadLogger {
     if (currentThread instanceof ForkJoinWorkerThread) {
       ForkJoinWorkerThread forkJoinWorkerThread = (ForkJoinWorkerThread) currentThread;
       ForkJoinPool forkJoinPool = forkJoinWorkerThread.getPool();
-      log.info(description + ". ForkJoinPool [" + forkJoinWorkerThread.getPoolIndex() + "]: \n"
-          + "\tPoolSize: " + forkJoinPool.getPoolSize()
-          + ", ActiveThreadCount: " + forkJoinPool.getActiveThreadCount()
-          + ", RunningThreadCount: " + forkJoinPool.getRunningThreadCount()
-          + ", QueuedTaskCount: " + forkJoinPool.getQueuedTaskCount()
-          + ", QueuedSubmissionCount: " + forkJoinPool.getQueuedSubmissionCount()
-          + ", Parallelism: " + forkJoinPool.getParallelism()
-      );
+      log(description, forkJoinWorkerThread.getPoolIndex(), forkJoinPool);
     } else {
       log.info(description + ". UnknownThreadPool: \n"
           + "\tThreadGroup.name: " + currentThread.getThreadGroup().getName()
@@ -66,6 +59,16 @@ public class ThreadLogger {
           + ", ThreadGroup.isDaemon: " + currentThread.getThreadGroup().isDaemon()
       );
     }
+  }
 
+  public static void log(String description, Integer poolIndex, ForkJoinPool forkJoinPool) {
+    log.info(description + ". ForkJoinPool [" + poolIndex + "]: \n"
+        + "\tPoolSize: " + forkJoinPool.getPoolSize()
+        + ", ActiveThreadCount: " + forkJoinPool.getActiveThreadCount()
+        + ", RunningThreadCount: " + forkJoinPool.getRunningThreadCount()
+        + ", QueuedTaskCount: " + forkJoinPool.getQueuedTaskCount()
+        + ", QueuedSubmissionCount: " + forkJoinPool.getQueuedSubmissionCount()
+        + ", Parallelism: " + forkJoinPool.getParallelism()
+    );
   }
 }

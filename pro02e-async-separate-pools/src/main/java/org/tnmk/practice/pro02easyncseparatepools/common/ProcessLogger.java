@@ -5,7 +5,7 @@ public class ProcessLogger {
     String result = serviceInstance.getClass().getSimpleName();
     if (asyncIndexes != null) {
       for (int i = 0; i < asyncIndexes.length; i++) {
-        result += "[" + i + "]";
+        result += "[" + asyncIndexes[i] + "]";
       }
     }
     return result;
