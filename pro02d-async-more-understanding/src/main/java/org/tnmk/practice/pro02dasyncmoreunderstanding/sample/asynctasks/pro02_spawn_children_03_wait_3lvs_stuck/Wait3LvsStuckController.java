@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -19,9 +22,10 @@ public class Wait3LvsStuckController {
       //
       @RequestParam(value = "lv02Count", defaultValue = "11") int lv02Count,
       @RequestParam(value = "lv03Count", defaultValue = "2") int lv03Count,
-      @RequestParam(value = "lv03Sleep", defaultValue = "100") int lv03sleep) {
+      @RequestParam(value = "lv03Sleep", defaultValue = "100") int lv03sleep) throws ExecutionException, InterruptedException {
     log.info("API {} is running...", REQUEST_PATH);
-    wait3LvsStuckLv01Async.spawnChildren(lv02Count, lv03Count, lv03sleep);
+    Future<String> future = wait3LvsStuckLv01Async.spawnChildren(lv02Count, lv03Count, lv03sleep);
+    future.get();
     return "finished";
   }
 }
