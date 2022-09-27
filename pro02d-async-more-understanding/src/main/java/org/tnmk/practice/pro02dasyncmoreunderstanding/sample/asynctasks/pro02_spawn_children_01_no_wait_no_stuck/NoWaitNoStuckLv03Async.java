@@ -14,12 +14,12 @@ import java.util.concurrent.CompletableFuture;
 @Service
 @RequiredArgsConstructor
 public class NoWaitNoStuckLv03Async {
-  private final ThreadPoolTaskExecutor threadPoolTaskExecutor;
+  //private final ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
   @Async
   public CompletableFuture<String> async(int sleep) {
     String description = ProcessLogger.summary(this, null);
-    ThreadLogger.logSummary(description, threadPoolTaskExecutor);
+    ThreadLogger.log(description, Thread.currentThread());
     try {
       Thread.sleep(sleep);
     } catch (InterruptedException e) {

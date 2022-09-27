@@ -19,14 +19,14 @@ public class ParallelStreamController {
 
   private static final String REQUEST_PATH = "/parallel/simple";
   private final ParallelStreamService parallelStreamService;
-  private final ThreadPoolTaskExecutor applicationTaskExecutor;
+  //private final ThreadPoolTaskExecutor applicationTaskExecutor;
 
   @GetMapping(REQUEST_PATH)
   public String asyncSpawnChildren(
       @RequestParam(value = "itemsCount", defaultValue = "2") int itemsCount,
       @RequestParam(value = "sleep", defaultValue = "100") int sleep) throws ExecutionException, InterruptedException {
     String processTitle = String.format("%s[%s] %s before starting", this.getClass().getSimpleName(), itemsCount, REQUEST_PATH);
-    ThreadLogger.logSummary(processTitle, applicationTaskExecutor);
+    ThreadLogger.log(processTitle, Thread.currentThread());
     parallelStreamService.processItemsConcurrently(itemsCount, sleep);
     return "" + itemsCount;
   }

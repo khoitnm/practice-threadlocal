@@ -1,0 +1,5 @@
+spring:
+  task:
+    execution:
+      pool:
+        core-size: 10

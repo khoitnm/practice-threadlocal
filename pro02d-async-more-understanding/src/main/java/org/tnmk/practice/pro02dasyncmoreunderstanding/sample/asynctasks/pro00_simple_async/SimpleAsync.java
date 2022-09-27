@@ -16,13 +16,13 @@ import java.util.concurrent.CompletableFuture;
 @RequiredArgsConstructor
 public class SimpleAsync {
 
-  private final ThreadPoolTaskExecutor applicationTaskExecutor;
+  //private final ThreadPoolTaskExecutor applicationTaskExecutor;
 
   @Async
   public CompletableFuture<String> async(int sleep) {
     String requestIndex = MDC.get(MdcKeys.MDC_KEY_REQUEST_INDEX);
     String processTitle = String.format("%s[%s]", this.getClass().getSimpleName(), requestIndex);
-    ThreadLogger.logSummary(processTitle + " sleeping " + sleep, applicationTaskExecutor);
+    ThreadLogger.log(processTitle, Thread.currentThread());
     try {
       Thread.sleep(sleep);
     } catch (InterruptedException e) {

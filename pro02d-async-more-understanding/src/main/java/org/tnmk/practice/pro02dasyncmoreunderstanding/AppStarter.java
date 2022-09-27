@@ -8,14 +8,15 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 import org.tnmk.practice.pro02dasyncmoreunderstanding.common.ThreadLogger;
 
+import java.util.concurrent.Executor;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
 public class AppStarter {
-  private final ThreadPoolTaskExecutor applicationTaskExecutor;
 
   @EventListener(ApplicationStartedEvent.class)
   public void start() {
-    ThreadLogger.log(applicationTaskExecutor);
+    ThreadLogger.log("Start App", Thread.currentThread());
   }
 }

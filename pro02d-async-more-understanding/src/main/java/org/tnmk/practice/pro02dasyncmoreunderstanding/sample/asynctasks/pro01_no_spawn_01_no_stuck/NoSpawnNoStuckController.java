@@ -18,7 +18,7 @@ public class NoSpawnNoStuckController {
 
   private static final String REQUEST_PATH = "/async/spawn-children/no-spwan-no-stuck";
   private final NoSpawnNoStuckAsync noSpawnNoStuckAsync;
-  private final ThreadPoolTaskExecutor applicationTaskExecutor;
+  //private final ThreadPoolTaskExecutor applicationTaskExecutor;
 
   @GetMapping(REQUEST_PATH)
   public String asyncSpawnChildren(
@@ -28,7 +28,7 @@ public class NoSpawnNoStuckController {
     CompletableFuture<?>[] futures = IntStream.range(0, childrenCount)
         .mapToObj(asyncIndex -> {
           String processTitle = String.format("%s[%s] before starting", this.getClass().getSimpleName(), asyncIndex);
-          ThreadLogger.logSummary(processTitle, applicationTaskExecutor);
+          ThreadLogger.log(processTitle, Thread.currentThread());
           return noSpawnNoStuckAsync.async(asyncIndex, sleep);
         })
         .toArray(CompletableFuture[]::new);

@@ -16,12 +16,12 @@ import java.util.stream.IntStream;
 @RequiredArgsConstructor
 public class NoWaitNoStuckLv01Async {
   private final NoWaitNoStuckLv02Async noWaitNoStuckLv02Async;
-  private final ThreadPoolTaskExecutor threadPoolTaskExecutor;
+  //private final ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
   @Async
   public CompletableFuture<String> spawnChildren(int lv01ChildThreads, int lv02ChildThreads, int lv03Sleep) {
     String description = ProcessLogger.summary(this, null);
-    ThreadLogger.logSummary(description, threadPoolTaskExecutor);
+    ThreadLogger.log(description, Thread.currentThread());
 
     IntStream.range(0, lv01ChildThreads)
         .forEach(i -> noWaitNoStuckLv02Async.spawnChildren(lv02ChildThreads, lv03Sleep))
