@@ -14,7 +14,7 @@ import java.util.concurrent.Future;
 @RequiredArgsConstructor
 public class Wait3LvsNoStuckController {
   private final Wait3LvsNoStuckLv01Async wait3LvsNoStuckLv01Async;
-  private static final String REQUEST_PATH = "/custom-async/spawn-children/wait-3lvs-stuck";
+  private static final String REQUEST_PATH = "/custom-async/spawn-children/wait-3lvs-no-stuck";
 
   @GetMapping(REQUEST_PATH)
   public String asyncSpawnChildren(
