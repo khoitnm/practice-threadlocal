@@ -6,7 +6,7 @@ import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.tnmk.practice.pro02fasyncforkjoinpool.common.ContextualForkJoinPool;
 import org.tnmk.practice.pro02fasyncforkjoinpool.common.decorated_forkjoinpool.DecoratedForkJoinPool;
-import org.tnmk.practice.pro02fasyncforkjoinpool.common.decorated_forkjoinpool.MdcDecorator;
+import org.tnmk.practice.pro02fasyncforkjoinpool.common.decorated_forkjoinpool.MdcForkJoinTaskDecorator;
 import org.tnmk.practice.pro02fasyncforkjoinpool.custom_async_pool.pro01_spawn_children_01_wait_3lvs_no_stuck.Wait3LvsNoStuckController;
 
 import java.util.concurrent.Executor;
@@ -38,7 +38,7 @@ public class AsyncConfig {
   @Bean(AsyncSupport.DECORATED_FORK_JOIN_POOL)
   public Executor decoratedForkJoinPool() {
     DecoratedForkJoinPool contextualForkJoinPool = new DecoratedForkJoinPool(
-        new MdcDecorator(),
+        new MdcForkJoinTaskDecorator(),
         Runtime.getRuntime().availableProcessors(),
         ForkJoinPool.defaultForkJoinWorkerThreadFactory,
         Thread.getDefaultUncaughtExceptionHandler(),

@@ -11,7 +11,7 @@ import java.util.concurrent.ForkJoinTask;
  * https://stackoverflow.com/questions/36026402/how-to-use-mdc-with-forkjoinpool
  */
 public class DecoratedForkJoinPool extends ForkJoinPool {
-  private final TaskDecorator taskDecorator;
+  private final ForkJoinTaskDecorator forkJoinTaskDecorator;
 
   /**
    * Creates a new MdcForkJoinPool.
@@ -32,38 +32,38 @@ public class DecoratedForkJoinPool extends ForkJoinPool {
    *                                  {@link RuntimePermission}{@code ("modifyThread")}
    */
   public DecoratedForkJoinPool(
-      MdcDecorator taskDecorator,
+      MdcForkJoinTaskDecorator taskDecorator,
       int parallelism, ForkJoinWorkerThreadFactory factory, Thread.UncaughtExceptionHandler handler, boolean asyncMode) {
     super(parallelism, factory, handler, asyncMode);
-    this.taskDecorator = taskDecorator;
+    this.forkJoinTaskDecorator = taskDecorator;
   }
 
   @Override
   public void execute(ForkJoinTask<?> task) {
     // See http://stackoverflow.com/a/19329668/14731
-    super.execute(taskDecorator.decorate(task));
+    super.execute(forkJoinTaskDecorator.decorate(task));
   }
 
   @Override
   public void execute(Runnable task) {
     // See http://stackoverflow.com/a/19329668/14731
-    super.execute(taskDecorator.decorate(task));
+    super.execute(forkJoinTaskDecorator.decorate(task));
   }
 
   @Override public ForkJoinTask<?> submit(Runnable task) {
-    return super.submit(taskDecorator.decorate(task));
+    return super.submit(forkJoinTaskDecorator.decorate(task));
   }
 
   @Override public <T> ForkJoinTask<T> submit(Callable<T> task) {
-    return super.submit(taskDecorator.decorate(task));
+    return super.submit(forkJoinTaskDecorator.decorate(task));
   }
 
   @Override public <T> ForkJoinTask<T> submit(ForkJoinTask<T> task) {
-    return super.submit(taskDecorator.decorate(task));
+    return super.submit(forkJoinTaskDecorator.decorate(task));
   }
 
   @Override public <T> ForkJoinTask<T> submit(Runnable task, T result) {
-    return super.submit(taskDecorator.decorate(task), result);
+    return super.submit(forkJoinTaskDecorator.decorate(task), result);
   }
 
 }
