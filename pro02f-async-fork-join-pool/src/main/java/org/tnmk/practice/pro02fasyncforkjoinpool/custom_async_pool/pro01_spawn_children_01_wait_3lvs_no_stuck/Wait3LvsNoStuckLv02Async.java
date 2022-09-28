@@ -2,6 +2,7 @@ package org.tnmk.practice.pro02fasyncforkjoinpool.custom_async_pool.pro01_spawn_
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.tnmk.practice.pro02fasyncforkjoinpool.common.ProcessLogger;
@@ -19,6 +20,7 @@ public class Wait3LvsNoStuckLv02Async {
 
   @Async(AsyncSupport.DECORATED_FORK_JOIN_POOL)
   public CompletableFuture<String> spawnChildren(final int lv02Index, int childrenCount, int lv03Sleep) {
+    MDC.put("Lv02", "" + lv02Index);
     String description = ProcessLogger.summary(this, lv02Index);
     ThreadLogger.log(description, Thread.currentThread());
 
