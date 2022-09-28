@@ -4,7 +4,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.tnmk.practice.pro02fasyncforkjoinpool.test_infrastructure.BaseIntegrationTest;
 
-import java.util.concurrent.ExecutionException;
+import java.time.Duration;
+
+import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 
 public class Wait3LvsNoStuckControllerTest extends BaseIntegrationTest {
 
@@ -12,14 +14,14 @@ public class Wait3LvsNoStuckControllerTest extends BaseIntegrationTest {
   private Wait3LvsNoStuckController wait3LvsNoStuckController;
 
   @Test
-  public void test() throws ExecutionException, InterruptedException {
+  public void when_usingDecoratedForkJoinPool_then_itWontGetStuck_and_MDCisCopiedAndCleanUpProperly() {
     // Given
-    int requestIndex = 0;
+    String requestIndex = "0";
 
-    // When
-    wait3LvsNoStuckController.asyncSpawnChildren("" + requestIndex, 12, 2, 10);
+    // When execution method, it won't get stuck. Hence, it should finish within 3 seconds.
+    assertTimeoutPreemptively(Duration.ofSeconds(3), () -> {
+      wait3LvsNoStuckController.asyncSpawnChildren(requestIndex, 12, 2, 10);
+    });
 
-    // Then
-    // No stuck.
   }
 }
