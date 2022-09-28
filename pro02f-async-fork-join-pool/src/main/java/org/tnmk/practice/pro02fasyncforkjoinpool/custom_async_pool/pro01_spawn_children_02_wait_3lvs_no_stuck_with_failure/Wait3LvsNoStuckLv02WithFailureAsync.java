@@ -17,7 +17,7 @@ import java.util.stream.IntStream;
 public class Wait3LvsNoStuckLv02WithFailureAsync {
   private final Wait3LvsNoStuckLv03WithFailureAsync wait3LvsNoStuckLv03WithFailureAsync;
 
-  @Async(AsyncSupport.EXECUTOR_BEAN_NAME)
+  @Async(AsyncSupport.DECORATED_FORK_JOIN_POOL)
   public CompletableFuture<String> spawnChildren(final int lv02Index, int childrenCount, int lv03Sleep) {
     String description = ProcessLogger.summary(this, lv02Index);
     ThreadLogger.log(description, Thread.currentThread());
