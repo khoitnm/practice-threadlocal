@@ -48,11 +48,11 @@ public class MdcForkJoinTaskDecorator implements ForkJoinTaskDecorator {
        * TODO {@link RecursiveTask} doesn't need {@link AtomicReference} for storing rawValue.
        *  So I'm still not sure why do we have to use {@link AtomicReference} here though?
        */
-      private final AtomicReference<T> override = new AtomicReference<>();
+      private final AtomicReference<T> taskResultReference = new AtomicReference<>();
 
       @Override
       public T getRawResult() {
-        T result = override.get();
+        T result = taskResultReference.get();
         if (result != null) {
           return result;
         }
@@ -61,7 +61,7 @@ public class MdcForkJoinTaskDecorator implements ForkJoinTaskDecorator {
 
       @Override
       protected void setRawResult(T value) {
-        override.set(value);
+        taskResultReference.set(value);
       }
 
       @Override
