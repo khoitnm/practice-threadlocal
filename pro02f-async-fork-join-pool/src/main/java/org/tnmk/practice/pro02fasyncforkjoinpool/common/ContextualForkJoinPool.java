@@ -3,6 +3,7 @@ package org.tnmk.practice.pro02fasyncforkjoinpool.common;
 import org.slf4j.MDC;
 
 import java.util.Map;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.atomic.AtomicReference;
@@ -11,6 +12,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * A {@link ForkJoinPool} that inherits MDC contexts from the thread that queues a task.
  *
  * @author Gili Tzabari
+ * https://stackoverflow.com/questions/36026402/how-to-use-mdc-with-forkjoinpool
  */
 public final class ContextualForkJoinPool extends ForkJoinPool {
   /**
@@ -39,16 +41,33 @@ public final class ContextualForkJoinPool extends ForkJoinPool {
   @Override
   public void execute(ForkJoinTask<?> task) {
     // See http://stackoverflow.com/a/19329668/14731
-    super.execute(wrap(task, MDC.getCopyOfContextMap()));
+    super.execute(wrap(task));
   }
 
   @Override
   public void execute(Runnable task) {
     // See http://stackoverflow.com/a/19329668/14731
-    super.execute(wrap(task, MDC.getCopyOfContextMap()));
+    super.execute(wrap(task));
   }
 
-  private <T> ForkJoinTask<T> wrap(ForkJoinTask<T> task, Map<String, String> newContext) {
+  @Override public ForkJoinTask<?> submit(Runnable task) {
+    return super.submit(wrap(task));
+  }
+
+  @Override public <T> ForkJoinTask<T> submit(Callable<T> task) {
+    return super.submit(wrap(task));
+  }
+
+  @Override public <T> ForkJoinTask<T> submit(ForkJoinTask<T> task) {
+    return super.submit(wrap(task));
+  }
+
+  @Override public <T> ForkJoinTask<T> submit(Runnable task, T result) {
+    return super.submit(wrap(task), result);
+  }
+
+  private <T> ForkJoinTask<T> wrap(ForkJoinTask<T> task) {
+    Map<String, String> parentContext = MDC.getCopyOfContextMap();
     return new ForkJoinTask<T>() {
       private static final long serialVersionUID = 1L;
       /**
@@ -59,8 +78,9 @@ public final class ContextualForkJoinPool extends ForkJoinPool {
       @Override
       public T getRawResult() {
         T result = override.get();
-        if (result != null)
+        if (result != null) {
           return result;
+        }
         return task.getRawResult();
       }
 
@@ -73,25 +93,38 @@ public final class ContextualForkJoinPool extends ForkJoinPool {
       protected boolean exec() {
         // According to ForkJoinTask.fork() "it is a usage error to fork a task more than once unless it has completed
         // and been reinitialized". We therefore assume that this method does not have to be thread-safe.
-        Map<String, String> oldContext = beforeExecution(newContext);
+        Map<String, String> originalChildContext = copyParentContext(parentContext);
         try {
           task.invoke();
           return true;
         } finally {
-          afterExecution(oldContext);
+          resetChildContext(originalChildContext);
         }
       }
     };
   }
 
-  private Runnable wrap(Runnable task, Map<String, String> newContext) {
+  private Runnable wrap(Runnable task) {
+    Map<String, String> newContext = MDC.getCopyOfContextMap();
     return () ->
     {
-      Map<String, String> oldContext = beforeExecution(newContext);
+      Map<String, String> oldContext = copyParentContext(newContext);
       try {
         task.run();
       } finally {
-        afterExecution(oldContext);
+        resetChildContext(oldContext);
+      }
+    };
+  }
+
+  private Callable wrap(Callable task) {
+    Map<String, String> newContext = MDC.getCopyOfContextMap();
+    return () -> {
+      Map<String, String> oldContext = copyParentContext(newContext);
+      try {
+        return task.call();
+      } finally {
+        resetChildContext(oldContext);
       }
     };
   }
@@ -99,29 +132,29 @@ public final class ContextualForkJoinPool extends ForkJoinPool {
   /**
    * Invoked before running a task.
    *
-   * @param newValue the new MDC context
+   * @param parentContext the new MDC context
    * @return the old MDC context
    */
-  private Map<String, String> beforeExecution(Map<String, String> newValue) {
-    Map<String, String> previous = MDC.getCopyOfContextMap();
-    if (newValue == null) {
+  private Map<String, String> copyParentContext(Map<String, String> parentContext) {
+    Map<String, String> originalContextFromChildThread = MDC.getCopyOfContextMap();
+    if (parentContext == null) {
       MDC.clear();
     } else {
-      MDC.setContextMap(newValue);
+      MDC.setContextMap(parentContext);
     }
-    return previous;
+    return originalContextFromChildThread;
   }
 
   /**
    * Invoked after running a task.
    *
-   * @param oldValue the old MDC context
+   * @param childContext the old MDC context
    */
-  private void afterExecution(Map<String, String> oldValue) {
-    if (oldValue == null) {
+  private void resetChildContext(Map<String, String> childContext) {
+    if (childContext == null) {
       MDC.clear();
     } else {
-      MDC.setContextMap(oldValue);
+      MDC.setContextMap(childContext);
     }
   }
 }
