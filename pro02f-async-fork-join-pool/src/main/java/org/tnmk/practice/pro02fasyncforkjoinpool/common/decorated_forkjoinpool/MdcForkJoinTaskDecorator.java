@@ -1,12 +1,14 @@
 package org.tnmk.practice.pro02fasyncforkjoinpool.common.decorated_forkjoinpool;
 
 import org.slf4j.MDC;
+
 import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ForkJoinTask;
+import java.util.concurrent.RecursiveTask;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class MdcDecorator implements TaskDecorator {
+public class MdcForkJoinTaskDecorator implements ForkJoinTaskDecorator {
 
   @Override
   public Runnable decorate(Runnable task) {
@@ -42,6 +44,9 @@ public class MdcDecorator implements TaskDecorator {
       private static final long serialVersionUID = 1L;
       /**
        * If non-null, overrides the value returned by the underlying task.
+       *
+       * TODO {@link RecursiveTask} doesn't need {@link AtomicReference} for storing rawValue.
+       *  So I'm still not sure why do we have to use {@link AtomicReference} here though?
        */
       private final AtomicReference<T> override = new AtomicReference<>();
 

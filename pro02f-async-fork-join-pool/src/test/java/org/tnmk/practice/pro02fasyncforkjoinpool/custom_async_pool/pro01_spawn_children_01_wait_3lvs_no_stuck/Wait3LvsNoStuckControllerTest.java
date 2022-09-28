@@ -20,7 +20,7 @@ public class Wait3LvsNoStuckControllerTest extends BaseIntegrationTest {
 
     // When execution method, it won't get stuck. Hence, it should finish within 3 seconds.
     assertTimeoutPreemptively(Duration.ofSeconds(3), () -> {
-      wait3LvsNoStuckController.asyncSpawnChildren(requestIndex, 12, 2, 10);
+      wait3LvsNoStuckController.asyncSpawnChildren(requestIndex, 15, 2, 10);
     });
 
   }
