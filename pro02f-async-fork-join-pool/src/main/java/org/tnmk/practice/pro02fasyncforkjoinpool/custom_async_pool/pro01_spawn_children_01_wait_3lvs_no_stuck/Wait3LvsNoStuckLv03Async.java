@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
 @RequiredArgsConstructor
 public class Wait3LvsNoStuckLv03Async {
 
-  @Async(AsyncSupport.EXECUTOR_BEAN_NAME)
+  @Async(AsyncSupport.DECORATED_FORK_JOIN_POOL)
   public CompletableFuture<String> async(int lv02Index, int lv03Index, int sleep) {
     String description = ProcessLogger.summary(this, lv02Index, lv03Index);
     ThreadLogger.log(description, Thread.currentThread());
