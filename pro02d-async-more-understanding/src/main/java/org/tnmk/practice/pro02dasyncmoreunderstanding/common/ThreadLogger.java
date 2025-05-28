@@ -64,6 +64,7 @@ public class ThreadLogger {
                     + ", PoolSize: " + executor.getPoolSize()
                     + ", MaxPoolSize: " + executor.getMaxPoolSize()
                     + ", ActiveCount: " + executor.getActiveCount()
+                    + ", ThreadPoolExecutor.remainingCapacity: " + executor.getThreadPoolExecutor().getQueue().remainingCapacity()
                     + ", ThreadPoolExecutor.getCompletedTaskCount: " + executor.getThreadPoolExecutor().getCompletedTaskCount()
                     + ", ThreadPoolExecutor.getTaskCount: " + executor.getThreadPoolExecutor().getTaskCount()
                     + ", ThreadPoolExecutor.getLargestPoolSize: " + executor.getThreadPoolExecutor().getLargestPoolSize()
