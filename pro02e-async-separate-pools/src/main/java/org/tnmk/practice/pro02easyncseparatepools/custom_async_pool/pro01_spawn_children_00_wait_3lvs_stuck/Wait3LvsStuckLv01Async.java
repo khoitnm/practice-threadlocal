@@ -25,7 +25,7 @@ public class Wait3LvsStuckLv01Async {
 
     CompletableFuture<?>[] futures = IntStream.range(0, lv02Count)
         .mapToObj(lv02Index -> {
-          log.info(description + ": Start adding waitStuckLv02Async[" + lv02Index + "]");
+          log.info(description + ": Start adding waitStuck_Lv02Async[" + lv02Index + "]");
           return wait3LvsStuckLv02Async.spawnChildren(lv02Index, lv03Count, lv03Sleep);
         })
         .toArray(CompletableFuture[]::new);
