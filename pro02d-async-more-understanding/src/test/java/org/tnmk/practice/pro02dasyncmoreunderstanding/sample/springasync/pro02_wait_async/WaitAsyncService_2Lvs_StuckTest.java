@@ -26,8 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 // After each test case, we still cannot totally clean up the TaskExecutor independently,
 // so DirtiesContext will make sure taskExecutor of one test case won't affect the other test cases.
 @DirtiesContext
-class WaitAsyncService_2Lvs_StuckTest
-{
+public class WaitAsyncService_2Lvs_StuckTest {
     @Autowired
     private TaskExecutor taskExecutor;
 
