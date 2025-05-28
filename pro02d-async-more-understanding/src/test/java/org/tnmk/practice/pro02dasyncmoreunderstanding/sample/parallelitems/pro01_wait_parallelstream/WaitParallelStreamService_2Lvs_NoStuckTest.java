@@ -5,7 +5,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.tnmk.practice.pro02dasyncmoreunderstanding.sample.springasync.pro02_wait_async.WaitAsyncService_2Lvs_StuckTest;
 
 import java.time.Duration;
@@ -14,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 
 @Slf4j
 @SpringBootTest
-@SpringJUnitConfig
 class WaitParallelStreamService_2Lvs_NoStuckTest {
     @Autowired
     private WaitParallelStreamService service;

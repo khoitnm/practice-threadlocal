@@ -2,9 +2,7 @@ package org.tnmk.practice.pro02dasyncmoreunderstanding.sample.springasync.pro00_
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.MDC;
 import org.springframework.stereotype.Service;
-import org.tnmk.practice.pro02dasyncmoreunderstanding.common.MdcKeys;
 import org.tnmk.practice.pro02dasyncmoreunderstanding.common.ThreadLogger;
 
 import java.util.concurrent.ExecutionException;
@@ -21,12 +19,10 @@ public class SimpleAsyncService {
     public String asyncSpawnChildren(
         int requestIndex,
         int sleep) throws ExecutionException, InterruptedException {
-        MDC.put(MdcKeys.MDC_KEY_REQUEST_INDEX, "" + requestIndex);
         String processTitle = String.format("%s[%s] before starting", this.getClass().getSimpleName(), requestIndex);
         ThreadLogger.log(processTitle, Thread.currentThread());
         Future<String> future = simpleAsync.async(sleep);
         String result = future.get();
-        MDC.remove(MdcKeys.MDC_KEY_REQUEST_INDEX);
         return result;
     }
 }

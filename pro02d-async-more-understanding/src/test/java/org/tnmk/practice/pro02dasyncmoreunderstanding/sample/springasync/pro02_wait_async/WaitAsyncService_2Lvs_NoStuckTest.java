@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 
 @Slf4j
 @SpringBootTest
-@SpringJUnitConfig
 @TestPropertySource(properties = {"spring.task.execution.pool.core-size=2"})
 
 // After each test case, we still cannot totally clean up the TaskExecutor independently,
