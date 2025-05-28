@@ -1,4 +1,4 @@
-package org.tnmk.practice.pro02dasyncmoreunderstanding.sample.asynctasks.pro02_spawn_children_03_wait_2lvs;
+package org.tnmk.practice.pro02dasyncmoreunderstanding.sample.asynctasks.pro02_wait_async;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class Wait2Lvs_Lv02Async
+public class WaitAsyncLv2
 {
     private final ThreadPoolTaskExecutor threadPoolTaskExecutor;
 

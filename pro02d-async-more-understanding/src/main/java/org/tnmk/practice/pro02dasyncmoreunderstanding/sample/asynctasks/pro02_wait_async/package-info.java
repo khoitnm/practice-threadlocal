@@ -8,4 +8,4 @@
  * And hence no single Thread Level 01 could be finished.
  * And hence the pool will not be able to clean up, it's always full.
  */
-package org.tnmk.practice.pro02dasyncmoreunderstanding.sample.asynctasks.pro02_spawn_children_03_wait_2lvs;
+package org.tnmk.practice.pro02dasyncmoreunderstanding.sample.asynctasks.pro02_wait_async;

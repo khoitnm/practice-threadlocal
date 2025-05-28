@@ -1,4 +1,4 @@
-package org.tnmk.practice.pro02dasyncmoreunderstanding.sample.asynctasks.pro02_spawn_children_03_wait_2lvs;
+package org.tnmk.practice.pro02dasyncmoreunderstanding.sample.asynctasks.pro02_wait_async;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,9 +12,9 @@ import java.util.stream.IntStream;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class Wait2Lvs_Service
+public class WaitAsyncService
 {
-    private final Wait2Lvs_Lv01Async lv1;
+    private final WaitAsyncLv1 lv1;
 
     public void asyncSpawnChildren(int lv01Count, int lv02Count) throws ExecutionException, InterruptedException {
         String description = "[Service]";// ProcessLogger.summary(this, null);

@@ -1,10 +1,9 @@
-package org.tnmk.practice.pro02dasyncmoreunderstanding.sample.asynctasks.pro02_spawn_children_03_wait_2lvs;
+package org.tnmk.practice.pro02dasyncmoreunderstanding.sample.asynctasks.pro02_wait_async;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.opentest4j.AssertionFailedError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.task.TaskExecutor;
@@ -26,25 +25,20 @@ import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 // After each test case, we still cannot totally clean up the TaskExecutor independently,
 // so DirtiesContext will make sure taskExecutor of one test case won't affect the other test cases.
 @DirtiesContext
-class Wait2Lvs_Service_2Lvs_StuckTest
+class WaitAsyncService_2Lvs_NoStuckTest
 {
     @Autowired
     private TaskExecutor taskExecutor;
 
     @Autowired
-    private Wait2Lvs_Service service;
+    private WaitAsyncService service;
 
     @Test
-    @DisplayName("Test when there are 2 Levels async, if the number of level1 >= core-size, stuck.")
-    void test_when_2Levels_If_Lv1AndLv2_GreaterThan_CoreSize_Stuck() {
+    @DisplayName("Test when there are 2 Levels async, if the number of level1 < core-size, no stuck.")
+    void test_when_2Levels_If_Lv1AndLv2_lessThan_CoreSize_NoStuck() {
         // This case will demonstrate that the app will get stuck and won't be finished within 5 seconds.
-        // This is how the app gets stuck:
-        // spring.task.execution.pool.core-size=2
-        //
-        assertThrows(AssertionFailedError.class, () -> {
-            assertTimeoutPreemptively(Duration.ofSeconds(5), () -> {
-                service.asyncSpawnChildren(2, 1);
-            });
+        assertTimeoutPreemptively(Duration.ofSeconds(5), () -> {
+            service.asyncSpawnChildren(1, 3);
         });
     }
 

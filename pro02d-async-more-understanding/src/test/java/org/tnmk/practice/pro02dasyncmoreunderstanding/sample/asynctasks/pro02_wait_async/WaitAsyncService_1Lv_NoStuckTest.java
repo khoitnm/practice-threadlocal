@@ -1,4 +1,4 @@
-package org.tnmk.practice.pro02dasyncmoreunderstanding.sample.asynctasks.pro02_spawn_children_03_wait_2lvs;
+package org.tnmk.practice.pro02dasyncmoreunderstanding.sample.asynctasks.pro02_wait_async;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
@@ -24,12 +24,12 @@ import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 // After each test case, we still cannot totally clean up the TaskExecutor independently,
 // so DirtiesContext will make sure taskExecutor of one test case won't affect the other test cases.
 @DirtiesContext
-class Wait2Lvs_Service_1Lv_NoStuckTest {
+class WaitAsyncService_1Lv_NoStuckTest {
     @Autowired
     private TaskExecutor taskExecutor;
 
     @Autowired
-    private Wait2Lvs_Service service;
+    private WaitAsyncService service;
 
 
     @Test
