@@ -45,7 +45,7 @@ class Wait2LvsStuck_ServiceTest {
     @AfterEach
     public void afterEach() {
         if (taskExecutor instanceof ThreadPoolTaskExecutor executor) {
-            log.info("Shutdown thread pool task executor:");
+            log.info("Shutdown thread pool task executor!!!");
             // If we don't do that, the children threads still exist and running even after the test case finished.
             // We want to stop those children threads, so we need to forcefully stop the thread pool. 
             executor.stop();

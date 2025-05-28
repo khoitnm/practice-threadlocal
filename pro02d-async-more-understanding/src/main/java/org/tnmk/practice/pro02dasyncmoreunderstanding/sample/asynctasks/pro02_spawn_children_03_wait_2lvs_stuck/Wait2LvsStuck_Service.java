@@ -16,12 +16,12 @@ public class Wait2LvsStuck_Service {
     private final Wait2LvsStuck_Lv01Async lv1;
 
     public void asyncSpawnChildren(int lv01Count, int lv02Count) throws ExecutionException, InterruptedException {
-        String description = "MainService";// ProcessLogger.summary(this, null);
-        ThreadLogger.log(description, Thread.currentThread());
+        String description = "[Service]";// ProcessLogger.summary(this, null);
+        ThreadLogger.log(description + " start... ", Thread.currentThread());
 
         CompletableFuture<?>[] futures = IntStream.range(0, lv01Count)
             .mapToObj(lv01Index -> {
-                log.info(description + ": add [" + lv01Index + "]");
+                log.info(description + " add [" + lv01Index + "]");
                 return lv1.runAsync(lv01Index, lv02Count);
             })
             .toArray(CompletableFuture[]::new);

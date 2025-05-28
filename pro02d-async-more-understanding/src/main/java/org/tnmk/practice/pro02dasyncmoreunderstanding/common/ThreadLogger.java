@@ -52,7 +52,7 @@ public class ThreadLogger {
             log(description, forkJoinWorkerThread.getPoolIndex(), forkJoinPool);
         } else {
             log.info(description + ""
-                + "\tThreadGroup.name: " + currentThread.getThreadGroup().getName()
+                + " ThreadGroup.name: " + currentThread.getThreadGroup().getName()
                 + ", ThreadGroup.activeCount: " + currentThread.getThreadGroup().activeCount()
                 + ", ThreadGroup.activeGroupCount: " + currentThread.getThreadGroup().activeGroupCount()
                 + ", ThreadGroup.isDaemon: " + currentThread.getThreadGroup().isDaemon()

@@ -18,7 +18,7 @@ public class Wait2LvsStuck_Lv02Async {
     @Async
     public CompletableFuture<String> runAsync(int lv1Index, int lv2Index) {
         String description = "[%s][%s]".formatted(lv1Index, lv2Index);//ProcessLogger.summary(this, lv1Index, lv2Index);
-        ThreadLogger.log(description, Thread.currentThread());
+        ThreadLogger.log(description + " start... ", Thread.currentThread());
 //        ThreadLogger.log(threadPoolTaskExecutor);
         try {
             Thread.sleep(50);
