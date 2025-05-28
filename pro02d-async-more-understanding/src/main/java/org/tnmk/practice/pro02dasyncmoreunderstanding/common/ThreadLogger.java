@@ -51,7 +51,7 @@ public class ThreadLogger {
             ForkJoinPool forkJoinPool = forkJoinWorkerThread.getPool();
             log(description, forkJoinWorkerThread.getPoolIndex(), forkJoinPool);
         } else {
-            log.info(description + ". UnknownThreadPool: \n"
+            log.info(description + ""
                 + "\tThreadGroup.name: " + currentThread.getThreadGroup().getName()
                 + ", ThreadGroup.activeCount: " + currentThread.getThreadGroup().activeCount()
                 + ", ThreadGroup.activeGroupCount: " + currentThread.getThreadGroup().activeGroupCount()
