@@ -1,4 +1,4 @@
-package org.tnmk.practice.pro02dasyncmoreunderstanding.sample.asynctasks.pro02_spawn_children_03_wait_2lvs_stuck;
+package org.tnmk.practice.pro02dasyncmoreunderstanding.sample.asynctasks.pro02_spawn_children_03_wait_2lvs;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,8 +12,8 @@ import java.util.stream.IntStream;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class Wait2LvsStuck_Lv01Async {
-    private final Wait2LvsStuck_Lv02Async lv2;
+public class Wait2Lvs_Lv01Async {
+    private final Wait2Lvs_Lv02Async lv2;
     //private final ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
     @Async
@@ -22,14 +22,16 @@ public class Wait2LvsStuck_Lv01Async {
         String description = "[%s]".formatted(lv01Index);// ProcessLogger.summary(this, lv01Index);
         ThreadLogger.log(description + " start...", Thread.currentThread());
 
-        CompletableFuture<?>[] futures = IntStream.range(0, lv02Count)
-            .mapToObj(lv02Index -> {
-                log.info(description + " add [" + lv01Index + "][" + lv02Index + "]");
-                return lv2.runAsync(lv01Index, lv02Index);
-            })
-            .toArray(CompletableFuture[]::new);
+        if (lv02Count > 0) {
+            CompletableFuture<?>[] futures = IntStream.range(0, lv02Count)
+                .mapToObj(lv02Index -> {
+                    log.info(description + " add [" + lv01Index + "][" + lv02Index + "]");
+                    return lv2.runAsync(lv01Index, lv02Index);
+                })
+                .toArray(CompletableFuture[]::new);
 
-        CompletableFuture.allOf(futures).join();
+            CompletableFuture.allOf(futures).join();
+        }
         log.info(description + " finished");
         return CompletableFuture.completedFuture("Lv01 finished");
     }

@@ -1,6 +1,6 @@
 /**
  * Scenario in this package:<br/>
- * This scenario is exactly the same as {@link org.tnmk.practice.pro02dasyncmoreunderstanding.sample.asynctasks.pro02_spawn_children_03_wait_2lvs_stuck}
+ * This scenario is exactly the same as {@link org.tnmk.practice.pro02dasyncmoreunderstanding.sample.asynctasks.pro02_spawn_children_03_wait_2lvs}
  * The only difference is this code use {@link java.util.stream.Stream#parallel()} instead of using {@link org.springframework.scheduling.annotation.Async}
  * And hence it won't get stuck.
  * The reason it doesn't get stuck is each {@link java.util.stream.Stream#parallel()} will create one separate ForkJoinPool, hence it won't block other pool.
