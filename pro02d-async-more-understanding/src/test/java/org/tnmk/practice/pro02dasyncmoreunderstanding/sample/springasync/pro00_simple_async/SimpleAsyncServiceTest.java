@@ -3,6 +3,7 @@ package org.tnmk.practice.pro02dasyncmoreunderstanding.sample.springasync.pro00_
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.concurrent.ExecutionException;
 
@@ -14,6 +15,7 @@ class SimpleAsyncServiceTest {
     @Autowired
     private SimpleAsyncService simpleAsyncService;
 
+    @DirtiesContext
     @Test
     void asyncSpawnChildren_shouldReturnResult() throws ExecutionException, InterruptedException {
         // Arrange
