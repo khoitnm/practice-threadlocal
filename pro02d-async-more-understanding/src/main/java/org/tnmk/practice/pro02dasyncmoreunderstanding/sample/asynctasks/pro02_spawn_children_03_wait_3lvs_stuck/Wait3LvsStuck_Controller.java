@@ -12,8 +12,8 @@ import java.util.concurrent.Future;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-public class Wait3LvsStuckController {
-  private final Wait3LvsStuckLv01Async wait3LvsStuckLv01Async;
+public class Wait3LvsStuck_Controller {
+  private final Wait3LvsStuck_Lv01Async wait3LvsStuckLv01Async;
   private static final String REQUEST_PATH = "/async/spawn-children/wait-3lvs-stuck";
 
   @GetMapping(REQUEST_PATH)

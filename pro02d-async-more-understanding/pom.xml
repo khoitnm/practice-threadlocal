@@ -13,12 +13,11 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
 
-        <springframework.boot.version>2.6.4</springframework.boot.version>
-
-        <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
-        <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
+        <springframework.boot.version>3.5.0</springframework.boot.version>
+        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+        <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
     </properties>
 
     <dependencies>
@@ -32,11 +31,6 @@
             <scope>test</scope>
             <exclusions>
                 <exclusion>
-                    <!--
-                    https://junit.org/junit5/docs/current/user-guide/
-                    JUnit Vintage provides a TestEngine for running JUnit 3 and JUnit 4 based tests
-                    And we don't need it anymore, we are using newer JUnit.
-                    -->
                     <groupId>org.junit.vintage</groupId>
                     <artifactId>junit-vintage-engine</artifactId>
                 </exclusion>
@@ -75,6 +69,13 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${springframework.boot.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
             <plugin>
@@ -90,6 +91,5 @@
             </plugin>
         </plugins>
     </build>
-
 
 </project>

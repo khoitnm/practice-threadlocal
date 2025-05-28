@@ -3,7 +3,6 @@ package org.tnmk.practice.pro02dasyncmoreunderstanding.sample.asynctasks.pro02_s
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 import org.tnmk.practice.pro02dasyncmoreunderstanding.common.ProcessLogger;
 import org.tnmk.practice.pro02dasyncmoreunderstanding.common.ThreadLogger;
@@ -13,7 +12,7 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class Wait3LvsStuckLv03Async {
+public class Wait3LvsStuck_Lv03Async {
   //private final ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
   @Async
