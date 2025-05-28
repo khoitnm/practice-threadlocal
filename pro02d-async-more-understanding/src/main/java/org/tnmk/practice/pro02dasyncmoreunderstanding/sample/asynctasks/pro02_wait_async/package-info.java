@@ -1,11 +1,11 @@
 /**
- * Scenario in this package:<br/>
- * Parent (Thread Level 01) thread creates Child Threads (Thread Level 02) and waits for all child threads to finish.
- * But no room in the pool for creating Thread Level 02.
- * The thing is, Thread Level 02 also trying to create Thread Level 03 and wait for them all.
- * But not Thread Pool are full, hence no single Thread level 03 is created, hence no one can be finished.
- * Then no single Thread Level 02 could be finished.
- * And hence no single Thread Level 01 could be finished.
- * And hence the pool will not be able to clean up, it's always full.
+ * Overview
+ * This package demonstrates a scenario where threads are created in two levels by using @Async.
+ * And this can lead to a case that make application hang when the thread pool becomes full when creating level 1 threads, so they cannot create level 2 threads.
+ * <p/>
+ * Overview logic:
+ *      Main Thread: The thread that invokes the WaitAsyncService methods, which try to create many level 1 threads by using @Async.
+ *      Thread Level 01: Parent threads that spawn many level 2 threads by using @Async.
+ *      Thread Level 02: Just sleep a bit and finish.
  */
 package org.tnmk.practice.pro02dasyncmoreunderstanding.sample.asynctasks.pro02_wait_async;
