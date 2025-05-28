@@ -46,17 +46,30 @@ public class ThreadLogger {
 
     }
 
-    public static void log(String description, Thread currentThread) {
+    public static void log(String description, ForkJoinWorkerThread forkJoinWorkerThread) {
+        ForkJoinPool forkJoinPool = forkJoinWorkerThread.getPool();
+        log(description, forkJoinWorkerThread.getPoolIndex(), forkJoinPool);
+    }
+
+    public static void log(String description, Thread currentThread, ThreadPoolTaskExecutor executor) {
         if (currentThread instanceof ForkJoinWorkerThread forkJoinWorkerThread) {
-            ForkJoinPool forkJoinPool = forkJoinWorkerThread.getPool();
-            log(description, forkJoinWorkerThread.getPoolIndex(), forkJoinPool);
+            log(description, forkJoinWorkerThread);
         } else {
-            log.info(description + ""
+            String logMessage = description + ""
                 + " ThreadGroup.name: " + currentThread.getThreadGroup().getName()
                 + ", ThreadGroup.activeCount: " + currentThread.getThreadGroup().activeCount()
-                + ", ThreadGroup.activeGroupCount: " + currentThread.getThreadGroup().activeGroupCount()
-                + ", ThreadGroup.isDaemon: " + currentThread.getThreadGroup().isDaemon()
-            );
+                + ", ThreadGroup.activeGroupCount: " + currentThread.getThreadGroup().activeGroupCount();
+            if (executor != null) {
+                logMessage += ", CorePoolSize: " + executor.getCorePoolSize()
+                    + ", PoolSize: " + executor.getPoolSize()
+                    + ", MaxPoolSize: " + executor.getMaxPoolSize()
+                    + ", ActiveCount: " + executor.getActiveCount()
+                    + ", ThreadPoolExecutor.getCompletedTaskCount: " + executor.getThreadPoolExecutor().getCompletedTaskCount()
+                    + ", ThreadPoolExecutor.getTaskCount: " + executor.getThreadPoolExecutor().getTaskCount()
+                    + ", ThreadPoolExecutor.getLargestPoolSize: " + executor.getThreadPoolExecutor().getLargestPoolSize()
+                    + ", ThreadPoolExecutor.getMaximumPoolSize: " + executor.getThreadPoolExecutor().getMaximumPoolSize();
+            }
+            log.info(logMessage);
         }
     }
 

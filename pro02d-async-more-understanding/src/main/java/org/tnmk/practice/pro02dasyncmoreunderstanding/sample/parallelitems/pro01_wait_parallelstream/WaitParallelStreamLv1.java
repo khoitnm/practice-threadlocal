@@ -12,12 +12,11 @@ import java.util.stream.IntStream;
 @RequiredArgsConstructor
 public class WaitParallelStreamLv1 {
     private final WaitParallelStreamLv2 lv2;
-    //private final ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
     public void run(int lv01Index, int lv02Count) {
 
-        String description = "[%s]".formatted(lv01Index);// ProcessLogger.summary(this, lv01Index);
-        ThreadLogger.log(description + " start...", Thread.currentThread());
+        String description = "[%s]".formatted(lv01Index);
+        ThreadLogger.log(description + " start...", Thread.currentThread(), null);
 
         if (lv02Count > 0) {
             IntStream.range(0, lv02Count)

@@ -17,6 +17,6 @@ public class AppStarter {
 
   @EventListener(ApplicationStartedEvent.class)
   public void start() {
-    ThreadLogger.log("Start App", Thread.currentThread());
+    ThreadLogger.log("Start App", Thread.currentThread(), null);
   }
 }

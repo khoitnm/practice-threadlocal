@@ -18,8 +18,8 @@ public class NoWaitAsyncLv2
 
     @Async
     public CompletableFuture<String> runAsync(int lv1Index, int lv2Index) {
-        String description = "[%s][%s]".formatted(lv1Index, lv2Index);//ProcessLogger.summary(this, lv1Index, lv2Index);
-        ThreadLogger.log(description + " start... ", Thread.currentThread());
+        String description = "[%s][%s]".formatted(lv1Index, lv2Index);
+        ThreadLogger.log(description + " start... ", Thread.currentThread(), threadPoolTaskExecutor);
         try {
             Thread.sleep(50);
         } catch (InterruptedException e) {

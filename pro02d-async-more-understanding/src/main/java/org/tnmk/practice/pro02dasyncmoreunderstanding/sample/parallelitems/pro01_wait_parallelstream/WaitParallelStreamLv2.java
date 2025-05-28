@@ -10,12 +10,10 @@ import org.tnmk.practice.pro02dasyncmoreunderstanding.common.ThreadLogger;
 @Service
 @RequiredArgsConstructor
 public class WaitParallelStreamLv2 {
-    private final ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
     public void run(int lv1Index, int lv2Index) {
-        String description = "[%s][%s]".formatted(lv1Index, lv2Index);//ProcessLogger.summary(this, lv1Index, lv2Index);
-        ThreadLogger.log(description + " start... ", Thread.currentThread());
-//        ThreadLogger.log(threadPoolTaskExecutor);
+        String description = "[%s][%s]".formatted(lv1Index, lv2Index);
+        ThreadLogger.log(description + " start... ", Thread.currentThread(), null);
         try {
             Thread.sleep(50);
         } catch (InterruptedException e) {

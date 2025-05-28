@@ -14,8 +14,8 @@ public class WaitParallelStreamService {
     private final WaitParallelStreamLv1 lv1;
 
     public void asyncSpawnChildren(int lv01Count, int lv02Count) {
-        String description = "[Service]";// ProcessLogger.summary(this, null);
-        ThreadLogger.log(description + " start... ", Thread.currentThread());
+        String description = "[Service]";
+        ThreadLogger.log(description + " start... ", Thread.currentThread(), null);
 
         IntStream.range(0, lv01Count)
             .parallel()

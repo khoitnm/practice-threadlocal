@@ -3,6 +3,7 @@ package org.tnmk.practice.pro02dasyncmoreunderstanding.sample.springasync.pro02_
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 import org.tnmk.practice.pro02dasyncmoreunderstanding.common.ThreadLogger;
 
@@ -14,13 +15,13 @@ import java.util.stream.IntStream;
 @RequiredArgsConstructor
 public class WaitAsyncLv1 {
     private final WaitAsyncLv2 lv2;
-    //private final ThreadPoolTaskExecutor threadPoolTaskExecutor;
+    private final ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
     @Async
     public CompletableFuture<String> runAsync(int lv01Index, int lv02Count) {
 
-        String description = "[%s]".formatted(lv01Index);// ProcessLogger.summary(this, lv01Index);
-        ThreadLogger.log(description + " start...", Thread.currentThread());
+        String description = "[%s]".formatted(lv01Index);
+        ThreadLogger.log(description + " start...", Thread.currentThread(), threadPoolTaskExecutor);
 
         if (lv02Count > 0) {
             CompletableFuture<?>[] futures = IntStream.range(0, lv02Count)

@@ -18,7 +18,7 @@ class SimpleAsyncServiceTest {
     void asyncSpawnChildren_shouldReturnResult() throws ExecutionException, InterruptedException {
         // Arrange
         int requestIndex = 1;
-        int sleepDuration = 100;
+        int sleepDuration = 10;
 
         // Act
         String result = simpleAsyncService.asyncSpawnChildren(requestIndex, sleepDuration);
