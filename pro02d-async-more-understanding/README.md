@@ -11,40 +11,8 @@ This project explores why certain asynchronous test cases can get **stuck** in S
 
 ### ❌ This test case gets stuck:
 [WaitAsyncServiceTest.test_when_2Levels_If_Lv1AndLv2_GreaterThan_CoreSize_Stuck](./src/test/java/org/tnmk/practice/pro02dasyncmoreunderstanding/sample/springasync/pro02_wait_async/WaitAsyncServiceTest.java)
+<img src="./doc/WaitAsyncServiceTest.svg" alt="./doc/WaitAsyncServiceTest_mermaid.md" width="75%" height="75%"/>
 
-<pre> ```mermaid flowchart TD
-subgraph ThreadPool [ThreadPool (core size = 2)]
-T1[Thread 1: Runs Level 1 Task A]
-T2[Thread 2: Runs Level 1 Task B]
-end
-
-    subgraph Level1
-        A1[Level 1 Task A]
-        A2[Level 1 Task B]
-    end
-
-    subgraph Level2
-        A1_1[Level 2 Task A1]
-        A1_2[Level 2 Task A2]
-        A2_1[Level 2 Task B1]
-        A2_2[Level 2 Task B2]
-    end
-
-    %% Thread assignments
-    T1 --> A1
-    T2 --> A2
-
-    %% Level 1 submits Level 2 tasks
-    A1 --> A1_1
-    A1 --> A1_2
-    A2 --> A2_1
-    A2 --> A2_2
-
-    %% Blocking arrows (waiting)
-    A1_1 -. waiting .-> QUEUE[Thread pool queue]
-    A1_2 -. waiting .-> QUEUE
-    A2_1 -. waiting ._
-``` </pre>
 
 ---
 
@@ -70,8 +38,6 @@ end
 > A side-by-side visual of how the thread pools behave:
 - Left: Spring `@Async` gets stuck due to thread starvation.
 - Right: `parallelStream()` keeps flowing using work-stealing.
-
-![Async vs ParallelStream Diagram](./async-vs-parallelstream-diagram.png)
 
 > You can generate this image again using ChatGPT with:  
 > _“Draw a diagram comparing Spring @Async vs Java parallelStream explaining deadlock and work stealing.”_
