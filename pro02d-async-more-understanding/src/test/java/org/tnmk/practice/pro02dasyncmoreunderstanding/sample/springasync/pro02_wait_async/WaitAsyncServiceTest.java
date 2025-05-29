@@ -41,27 +41,23 @@ public class WaitAsyncServiceTest {
 
     @DirtiesContext //reset the TaskExecutor after each test method.
     @Test
-    @DisplayName("Test when there are 2 Levels async, if the number of level1 >= core-size, stuck.")
-    void test_when_2Levels_If_Lv1AndLv2_GreaterThan_CoreSize_Stuck() {
-        // This case will demonstrate that the app will get stuck and won't be finished within 5 seconds.
-        // This is how the app gets stuck:
-        // spring.task.execution.pool.core-size=2
-        //
-        assertThrows(AssertionFailedError.class, () -> {
-            assertTimeoutPreemptively(Duration.ofSeconds(5), () -> {
-                service.asyncSpawnChildren(2, 1);
-            });
-        });
-    }
-
-
-    @DirtiesContext //reset the TaskExecutor after each test method.
-    @Test
     @DisplayName("Test when there are 2 Levels async, if the number of level1 < core-size, no stuck.")
     void test_when_2Levels_If_Lv1AndLv2_lessThan_CoreSize_NoStuck() {
         // This case will demonstrate that the app will get stuck and won't be finished within 5 seconds.
         assertTimeoutPreemptively(Duration.ofSeconds(5), () -> {
             service.asyncSpawnChildren(1, 3);
+        });
+    }
+
+    @DirtiesContext //reset the TaskExecutor after each test method.
+    @Test
+    @DisplayName("Test when there are 2 Levels async, if the number of level1 >= core-size, stuck.")
+    void test_when_2Levels_If_Lv1AndLv2_GreaterThan_CoreSize_Stuck() {
+        // This case will demonstrate that the app will get stuck and won't be finished within 5 seconds.
+        assertThrows(AssertionFailedError.class, () -> {
+            assertTimeoutPreemptively(Duration.ofSeconds(5), () -> {
+                service.asyncSpawnChildren(2, 1);
+            });
         });
     }
 
