@@ -14,11 +14,10 @@ import java.util.stream.IntStream;
 @RequiredArgsConstructor
 public class WaitAsyncService {
     private final WaitAsyncLv1 lv1;
-    private final ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
     public void asyncSpawnChildren(int lv01Count, int lv02Count) {
         String description = "[Service]";
-        ThreadLogger.log(description + " start... ", Thread.currentThread(), threadPoolTaskExecutor);
+        ThreadLogger.log(description + " start... ", Thread.currentThread(), null);
 
         CompletableFuture<?>[] futures = IntStream.range(0, lv01Count)
             .mapToObj(lv01Index -> {

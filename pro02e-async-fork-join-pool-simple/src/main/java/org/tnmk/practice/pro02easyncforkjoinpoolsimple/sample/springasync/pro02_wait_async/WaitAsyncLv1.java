@@ -6,6 +6,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 import org.tnmk.practice.pro02easyncforkjoinpoolsimple.common.ThreadLogger;
+import org.tnmk.practice.pro02easyncforkjoinpoolsimple.custom_async_pool.AsyncSupport;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.IntStream;
@@ -15,13 +16,12 @@ import java.util.stream.IntStream;
 @RequiredArgsConstructor
 public class WaitAsyncLv1 {
     private final WaitAsyncLv2 lv2;
-    private final ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
-    @Async
+    @Async(AsyncSupport.EXECUTOR_BEAN_NAME)
     public CompletableFuture<String> runAsync(int lv01Index, int lv02Count) {
 
         String description = "[%s]".formatted(lv01Index);
-        ThreadLogger.log(description + " start...", Thread.currentThread(), threadPoolTaskExecutor);
+        ThreadLogger.log(description + " start...", Thread.currentThread(), null);
 
         if (lv02Count > 0) {
             CompletableFuture<?>[] futures = IntStream.range(0, lv02Count)

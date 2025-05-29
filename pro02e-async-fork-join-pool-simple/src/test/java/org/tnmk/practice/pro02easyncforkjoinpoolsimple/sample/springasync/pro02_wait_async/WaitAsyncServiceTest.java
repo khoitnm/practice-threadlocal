@@ -2,9 +2,9 @@ package org.tnmk.practice.pro02easyncforkjoinpoolsimple.sample.springasync.pro02
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.opentest4j.AssertionFailedError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.task.TaskExecutor;
@@ -14,18 +14,21 @@ import org.tnmk.practice.pro02easyncforkjoinpoolsimple.sample.springasync.testsu
 
 import java.time.Duration;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 
 @Slf4j
 @SpringBootTest
-@TestPropertySource(properties = {"spring.task.execution.pool.core-size=2"})
+@TestPropertySource(properties = {"async.pool.parallelism=2"})
 public class WaitAsyncServiceTest {
-    @Autowired
-    private TaskExecutor taskExecutor;
 
     @Autowired
     private WaitAsyncService service;
+
+//    @BeforeEach
+//    public void setup() {
+//        // Configure parallelism for the common ForkJoinPool (which is used by Java parallel streams).
+////        System.setProperty("async.pool.parallelism", "2");
+//    }
 
     // After each test method, we still cannot totally clean up the TaskExecutor independently,
     // so DirtiesContext will reset the TaskExecutor after each test method.
@@ -41,16 +44,10 @@ public class WaitAsyncServiceTest {
 
     @DirtiesContext //reset the TaskExecutor after each test method.
     @Test
-    @DisplayName("Test when there are 2 Levels async, if the number of level1 >= core-size, stuck.")
-    void test_when_2Levels_If_Lv1AndLv2_GreaterThan_CoreSize_Stuck() {
-        // This case will demonstrate that the app will get stuck and won't be finished within 5 seconds.
-        // This is how the app gets stuck:
-        // spring.task.execution.pool.core-size=2
-        //
-        assertThrows(AssertionFailedError.class, () -> {
-            assertTimeoutPreemptively(Duration.ofSeconds(5), () -> {
-                service.asyncSpawnChildren(2, 1);
-            });
+    @DisplayName("Test when there are 2 Levels async, if the number of level1 >= core-size, no stuck, thanks for @Async(AsyncSupport.EXECUTOR_BEAN_NAME).")
+    void test_when_2Levels_If_Lv1AndLv2_GreaterThan_CoreSize_NoStuck() {
+        assertTimeoutPreemptively(Duration.ofSeconds(5), () -> {
+            service.asyncSpawnChildren(2, 1);
         });
     }
 
@@ -63,11 +60,6 @@ public class WaitAsyncServiceTest {
         assertTimeoutPreemptively(Duration.ofSeconds(5), () -> {
             service.asyncSpawnChildren(1, 3);
         });
-    }
-
-    @AfterEach
-    public void afterEach() {
-        CleanUpSupport.stopTaskExecutor(taskExecutor);
     }
 
 }

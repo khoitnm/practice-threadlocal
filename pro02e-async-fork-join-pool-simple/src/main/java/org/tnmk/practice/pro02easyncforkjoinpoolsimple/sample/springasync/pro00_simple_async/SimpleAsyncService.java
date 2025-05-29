@@ -15,13 +15,12 @@ import java.util.concurrent.Future;
 public class SimpleAsyncService {
 
     private final SimpleAsync simpleAsync;
-    private final ThreadPoolTaskExecutor applicationTaskExecutor;
 
     public String asyncSpawnChildren(
         int requestIndex,
         int sleep) throws ExecutionException, InterruptedException {
         String processTitle = String.format("%s[%s] before starting", this.getClass().getSimpleName(), requestIndex);
-        ThreadLogger.log(processTitle, Thread.currentThread(), applicationTaskExecutor);
+        ThreadLogger.log(processTitle, Thread.currentThread(), null);
         Future<String> future = simpleAsync.async(sleep);
         String result = future.get();
         return result;
