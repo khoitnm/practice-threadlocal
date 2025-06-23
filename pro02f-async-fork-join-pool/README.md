@@ -11,7 +11,7 @@ We also try to cover more advanced aspect:
 - Graceful shutdown
 
 *UPDATED*
-In Java 21, we can use VirtualThread instead of ForkJoinPool, it's much simpler, please view [AsyncConfig](./src/main/java/org/tnmk/practice/pro02easyncforkjoinpoolsimple/custom_async_pool/AsyncConfig.java)
+In Java 21, we can use VirtualThread instead of ForkJoinPool, it's much simpler, please view [AsyncConfig](./src/main/java/org/tnmk/practice/pro02fasyncforkjoinpool/custom_async_pool/AsyncConfig.java)
 
 # Q&A
 
