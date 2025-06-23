@@ -1,0 +1,19 @@
+<configuration>
+    <include resource="logback-rollingfile.xml"/>
+    <include resource="logback-rollingfile-error.xml"/>
+
+    <!-- CONSOLE -->
+    <appender name="COLORFUL_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%green(%d{HH:mm:ss.SSS}) [%-32thread] %green(%msg) %n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="COLORFUL_CONSOLE"/>
+        <appender-ref ref="ROLLING_FILE"/>
+    </root>
+<!--    <root level="ERROR">-->
+<!--        <appender-ref ref="ROLLING_FILE_ERROR"/>-->
+<!--    </root>-->
+</configuration>
