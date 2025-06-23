@@ -14,3 +14,6 @@ Note that this example hasn't handled the following cases:
 - Exception handler
   https://www.javacodegeeks.com/2015/02/java8-multi-threading-forkjoinpool-dealing-with-exceptions.html
 - Graceful shutdown
+
+*UPDATED*
+In Java 21, we can use VirtualThread instead of ForkJoinPool, it's much simpler, please view [AsyncConfig](./src/main/java/org/tnmk/practice/pro02easyncforkjoinpoolsimple/custom_async_pool/AsyncConfig.java)
