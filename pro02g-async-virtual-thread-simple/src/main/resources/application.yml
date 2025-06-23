@@ -1,2 +1,0 @@
-# When working with ForkJoinPool, we use the term `parallelism` instead of `pool size`,
-async.pool.parallelism: 5
